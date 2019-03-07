@@ -34,7 +34,7 @@ namespace linebot227.Functions
                 title = "Title",
                 //設定圖片
                 thumbnailImageUrl = new Uri("https://scontent-tpe1-1.xx.fbcdn.net/v/t31.0-8/15800635_1324407647598805_917901174271992826_o.jpg?oh=2fe14b080454b33be59cdfea8245406d&oe=591D5C94"),
-                actions =  //設定回覆動作
+                actions = actions //設定回覆動作
             };
 
             //發送
