@@ -12,7 +12,7 @@ namespace linebot227.Functions
         const string channelAccessToken = "fTBvt+oi30MpuWqTvT/KJDBuKDJ8iKxPhJLX5fHwT+bha1vEfZPfprFFQ7LrdgdyrDnx/yDe1C+hTbLtYxojWGRyAbRVz2iuok8WbUiZBeOn3gxlUjs5gpsGQmmySmmF9m/Uat9ZwLWxomFA3FZ6jgdB04t89/1O/w1cDnyilFU=";
         const string AdminUserId = "U8168367ec76c449dbdd98410d9333b8b";
         const string SendTo = "U8168367ec76c449dbdd98410d9333b8b";
-        public static void setTemplete(ButtomTemplate_info ButtomTemplate)
+        public static void setTemplete(ButtonTemplate_info ButtonTemplate123)
         {
             var bot = new Bot(channelAccessToken);
             //建立actions，作為ButtonTemplate的用戶回覆行為
@@ -21,7 +21,7 @@ namespace linebot227.Functions
             { label = "點選這邊等同用戶直接輸入某訊息", text = "/例如這樣" });
             actions.Add(new isRock.LineBot.MessageAction()
             //kai
-            { label = "點選這邊等同用戶直接輸入某訊息", text = LineEvent.message.text });
+            { label = "點選這邊等同用戶直接輸入某訊息", text = ButtonTemplate123.LineEvent });
             actions.Add(new isRock.LineBot.UriAction()
             { label = "點這邊開啟網頁", uri = new Uri("http://www.google.com") });
             

@@ -33,7 +33,12 @@ namespace linebot227.Controllers
                     if (LineEvent.message.type == "text")
                     { //收到文字
                         this.ReplyMessage(LineEvent.replyToken, "你說了:" + LineEvent.message.text);
-
+                        if (LineEvent.message.text == "1")
+                        {
+                            ButtonTemplate_info info = new ButtonTemplate_info();
+                            info.LineEvent = LineEvent.source.userId;
+                            linebot227.Functions.template.setTemplete(info);
+                        }
                         if (LineEvent.message.text == "6F 開門")
                         {
                             HttpClient client = new HttpClient();
