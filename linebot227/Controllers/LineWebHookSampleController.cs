@@ -33,11 +33,12 @@ namespace linebot227.Controllers
                     if (LineEvent.message.type == "text")
                     { //收到文字
                         this.ReplyMessage(LineEvent.replyToken, "你說了:" + LineEvent.message.text);
+
                         if (LineEvent.message.text == "6F 開門")
                         {
                             HttpClient client = new HttpClient();
                             var uri = $"http://kaiwen1995.com:3001/HWC";
-
+                            linebot227.Functions.Open.OpenDoor();
                             HttpResponseMessage response = client.GetAsync(uri).Result;
                         }
                     }
