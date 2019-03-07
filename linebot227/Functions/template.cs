@@ -20,6 +20,7 @@ namespace linebot227.Functions
             actions.Add(new isRock.LineBot.MessageAction()
             { label = "點選這邊等同用戶直接輸入某訊息", text = "/例如這樣" });
             actions.Add(new isRock.LineBot.MessageAction()
+            //kai
             { label = "點選這邊等同用戶直接輸入某訊息", text = LineEvent.message.text });
             actions.Add(new isRock.LineBot.UriAction()
             { label = "點這邊開啟網頁", uri = new Uri("http://www.google.com") });
