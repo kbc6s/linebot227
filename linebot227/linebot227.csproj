@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="ButtonTemplate\lineID.cs" />
     <Compile Include="Controllers\LineWebHookSampleController.cs" />
     <Compile Include="Controllers\TestLUISController.cs" />
     <Compile Include="Controllers\TestQnAController.cs" />
@@ -99,10 +100,11 @@
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Functions\Open.cs" />
+    <Compile Include="Functions\template.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ButtonTemplate.cs" />
     <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\employee_info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

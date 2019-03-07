@@ -38,7 +38,6 @@ namespace linebot227.Controllers
                         {
                             HttpClient client = new HttpClient();
                             var uri = $"http://kaiwen1995.com:3001/HWC";
-                            linebot227.Functions.Open.OpenDoor();
                             HttpResponseMessage response = client.GetAsync(uri).Result;
                         }
                     }
