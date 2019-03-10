@@ -94,8 +94,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ButtonTemplate\lineID.cs" />
     <Compile Include="Controllers\LineWebHookSampleController.cs" />
-    <Compile Include="Controllers\TestLUISController.cs" />
-    <Compile Include="Controllers\TestQnAController.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -107,6 +105,7 @@
     <Compile Include="Models\ButtonTemplate.cs" />
     <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\employee_info.cs" />
+    <Compile Include="Models\QueryString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
