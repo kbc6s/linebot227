@@ -105,7 +105,6 @@
     <Compile Include="Models\ButtonTemplate.cs" />
     <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\employee_info.cs" />
-    <Compile Include="Models\QueryString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

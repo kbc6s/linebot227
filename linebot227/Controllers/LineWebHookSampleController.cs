@@ -32,17 +32,17 @@ namespace linebot227.Controllers
                 {
                     if (LineEvent.message.type == "text")
                     { //收到文字
-                        this.ReplyMessage(LineEvent.replyToken, "你說了:" + LineEvent.message.text);
+                        //this.ReplyMessage(LineEvent.replyToken, "你說了:" + LineEvent.message.text);
+                        if (LineEvent.message.text == "首次登入")
+                        {
+                            ButtonTemplateFunction info = new ButtonTemplateFunction();
+                            info.LineEvent = LineEvent.source.userId;
+                            linebot227.Functions.template.LoginTemplete(info);
+                        }
                         if (LineEvent.message.text == "1")
                         {
-                            ButtonTemplate_info info = new ButtonTemplate_info();
-                            info.LineEvent = LineEvent.source.userId;
-                            linebot227.Functions.template.setTemplete(info);
-                        }
-                        if (LineEvent.message.text == "6F 開門")
-                        {
                             HttpClient client = new HttpClient();
-                            var uri = $"http://kaiwen1995.com:3001/HWC";
+                            var uri = $"http://kaiwen1995.com:3001/openKai";
                             HttpResponseMessage response = client.GetAsync(uri).Result;
                         }
                     }

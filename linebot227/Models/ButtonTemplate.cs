@@ -5,7 +5,7 @@ using System.Web;
 
 namespace linebot227.Models
 {
-    public class ButtonTemplate_info
+    public class ButtonTemplateFunction
     {
         public string imageURL { get; set; }
         public List<string> Button { get; set; }
