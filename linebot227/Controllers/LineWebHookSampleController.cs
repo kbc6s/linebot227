@@ -35,15 +35,21 @@ namespace linebot227.Controllers
                         //this.ReplyMessage(LineEvent.replyToken, "你說了:" + LineEvent.message.text);
                         if (LineEvent.message.text == "個人設定")
                         {
-                            ButtonTemplateFunction info = new ButtonTemplateFunction();
-                            info.LineEvent = LineEvent.source.userId;
+                            ButtonTemplateParameter info = new ButtonTemplateParameter();
+                            info.LineID = LineEvent.source.userId;
                             linebot227.Functions.template.LoginTemplete(info);
                         }
-                        if (LineEvent.message.text == "1")
+                        if (LineEvent.message.text == "監看狀態")
                         {
-                            HttpClient client = new HttpClient();
-                            var uri = $"http://kaiwen1995.com:3001/openKai";
-                            HttpResponseMessage response = client.GetAsync(uri).Result;
+                            ButtonTemplateParameter status = new ButtonTemplateParameter();
+                            status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
+                            status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
+                            linebot227.Functions.template.BuildingStatusTemplete(status);
+
+
+                            //HttpClient client = new HttpClient();
+                            //var uri = $"http://kaiwen1995.com:3001/openKai";
+                            //HttpResponseMessage response = client.GetAsync(uri).Result;
                         }
                     }
                     /*
