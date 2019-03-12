@@ -25,7 +25,7 @@
             <asp:TextBox ID="TextBox2" runat="server"> </asp:TextBox>
             <br />
             <br />
-            <asp:Button ID="Button3" runat="server" OnClick="Button_SendButtonTemplate_Click" Text="Push Sticker Message" />
+            <asp:Button ID="Button3" runat="server" OnClick="Button_SendButtonTemplate_Click" Text="Push Template Message" />
 
 
             <asp:TextBox ID="txb_Token" CssClass="form-control" runat="server" placeholder="Channel Access Token 請從Linebot管理後台取得"></asp:TextBox>
