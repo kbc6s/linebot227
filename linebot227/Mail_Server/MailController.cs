@@ -17,8 +17,8 @@ namespace linebot227.Mail_Server
             int portNumber = 587;
             bool enableSSL = true;
             //填入寄送方email和密碼
-            string emailFrom = "f129546497@gmail.com";
-            string password = "kaiwen19951201";
+            string emailFrom = "";
+            string password = "";
             //收信方email
             //string emailTo = "";
             //主旨
