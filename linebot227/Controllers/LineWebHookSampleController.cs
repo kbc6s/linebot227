@@ -33,6 +33,7 @@ namespace linebot227.Controllers
                     if (LineEvent.message.type == "text")
                     { //收到文字
                         //this.ReplyMessage(LineEvent.replyToken, "你說了:" + LineEvent.message.text);
+
                         if (LineEvent.message.text == "個人設定")
                         {
                             ButtonTemplateParameter info = new ButtonTemplateParameter();

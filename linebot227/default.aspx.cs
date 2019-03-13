@@ -25,8 +25,8 @@ namespace linebot227
         protected void Button1_Click(object sender, EventArgs e)
         {
             var bot = new Bot(channelAccessToken);
-            //bot.PushMessage(AdminUserId, $"測試 {DateTime.Now.ToString()} ! ");
-            bot.PushMessage(AdminUserId, Label2);
+            bot.PushMessage(AdminUserId, $"測試 {DateTime.Now.ToString()} ! ");
+            //bot.PushMessage(AdminUserId, Label2);
             string s_url;
             s_url = "?name=" + Label2;
             Response.Redirect(s_url);
@@ -37,6 +37,12 @@ namespace linebot227
             var bot = new Bot(channelAccessToken);
             bot.PushMessage(AdminUserId, 1,2);
         }
+
+        protected void Button4_sendMail(object sender, EventArgs e)
+        {
+            Mail_Server.MailController.SendEmail();
+        }
+
         protected void Button_SendButtonTemplate_Click(object sender, EventArgs e)
         {
             var bot = new Bot(channelAccessToken);
