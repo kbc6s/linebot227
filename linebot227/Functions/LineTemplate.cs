@@ -7,10 +7,9 @@ using System.Web;
 
 namespace linebot227.Functions
 {
-    public class template
+    public class LineTemplate
     {
         const string channelAccessToken = "fTBvt+oi30MpuWqTvT/KJDBuKDJ8iKxPhJLX5fHwT+bha1vEfZPfprFFQ7LrdgdyrDnx/yDe1C+hTbLtYxojWGRyAbRVz2iuok8WbUiZBeOn3gxlUjs5gpsGQmmySmmF9m/Uat9ZwLWxomFA3FZ6jgdB04t89/1O/w1cDnyilFU=";
-        const string AdminUserId = "U8168367ec76c449dbdd98410d9333b8b";
         const string SendTo = "U8168367ec76c449dbdd98410d9333b8b";
         public static void LoginTemplete(ButtonTemplateParameter ButtonTemplateParameter)
         {

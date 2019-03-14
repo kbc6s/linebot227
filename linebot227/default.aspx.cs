@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using linebot227.Models;
+using linebot227.Functions;
 
 namespace linebot227
 {
@@ -12,11 +14,10 @@ namespace linebot227
     {
         const string channelAccessToken = "fTBvt+oi30MpuWqTvT/KJDBuKDJ8iKxPhJLX5fHwT+bha1vEfZPfprFFQ7LrdgdyrDnx/yDe1C+hTbLtYxojWGRyAbRVz2iuok8WbUiZBeOn3gxlUjs5gpsGQmmySmmF9m/Uat9ZwLWxomFA3FZ6jgdB04t89/1O/w1cDnyilFU=";
         const string AdminUserId= "U8168367ec76c449dbdd98410d9333b8b";
-        const string SendTo = "U8168367ec76c449dbdd98410d9333b8b";
        // public object Label2;
         public string Label2 { get; private set; }
         public string Label1 { get; private set; }
-
+        public SQLcontroller sql = new SQLcontroller("192.168.3.195", "mydb", "sa", "leegood");
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,18 +30,49 @@ namespace linebot227
             //bot.PushMessage(AdminUserId, Label2);
             string s_url;
             s_url = "?name=" + Label2;
-            Response.Redirect(s_url);
+            Response.Redirect(s_url);     //queryString 使用完後重新導向新的網站
+        }
+        //test SQL
+        protected void Button2_selectSQL(object sender, EventArgs e)
+        {
+            //var bot = new Bot(channelAccessToken);
+            //bot.PushMessage(AdminUserId, 1,2);
+
+            //var sql = new SQLcontroller("192.168.3.195", "mydb", "sa", "leegood");
+            Console.WriteLine(sql.GetMemberInfo());
+
+            //MemberInfo mi = new MemberInfo();
+            //mi.Email = "leegood@gmail.com";
+            //mi.Name = "leegood";
+            //mi.LineID = "ouyr2345jhxcvncc";
+            //mi.Valid = "not yet";
+            //mi.AuthTime = DateTime.Now;
+            //sql.InsertMemberInfo(mi);
+
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
+        protected void Button4_deleteSQL(object sender, EventArgs e)
         {
-            var bot = new Bot(channelAccessToken);
-            bot.PushMessage(AdminUserId, 1,2);
+            sql.DeleteMemberInfo(9);
+        }
+
+        protected void Button5_insertSQL(object sender, EventArgs e)
+        {
+            var sql = new SQLcontroller("192.168.3.195", "mydb", "sa", "leegood");
+            sql.InsertMemberInfo(new MemberInfo
+            {
+                Email = "123@gmail.com",
+                Name = "kaiiak",
+                LineID = "23456789qwertyuisdfghj",
+                Valid = "OK",
+                AuthTime = DateTime.Now
+            });
+            //Mail_Server.MailController.SendEmail();
         }
 
         protected void Button4_sendMail(object sender, EventArgs e)
         {
-            Mail_Server.MailController.SendEmail();
+            //Mail_Server.MailController.SendEmail();
         }
 
         protected void Button_SendButtonTemplate_Click(object sender, EventArgs e)
@@ -68,7 +100,7 @@ namespace linebot227
             };
 
             //發送
-            bot.PushMessage(SendTo, ButtonTemplate);
+            bot.PushMessage(AdminUserId, ButtonTemplate);
         }
     }
 }

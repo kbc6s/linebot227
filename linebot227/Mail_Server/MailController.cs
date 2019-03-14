@@ -29,7 +29,7 @@ namespace linebot227.Mail_Server
             using (MailMessage mail = new MailMessage())
             {
                 mail.From = new MailAddress(emailFrom);
-                mail.To.Add(emailTo);
+                //mail.To.Add(emailTo);
                 mail.Subject = subject;
                 mail.Body = body;
                 // 若你的內容是HTML格式，則為True

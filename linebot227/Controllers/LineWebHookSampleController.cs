@@ -38,14 +38,14 @@ namespace linebot227.Controllers
                         {
                             ButtonTemplateParameter info = new ButtonTemplateParameter();
                             info.LineID = LineEvent.source.userId;
-                            linebot227.Functions.template.LoginTemplete(info);
+                            linebot227.Functions.LineTemplate.LoginTemplete(info);
                         }
                         if (LineEvent.message.text == "監看狀態")
                         {
                             ButtonTemplateParameter status = new ButtonTemplateParameter();
                             status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
                             status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
-                            linebot227.Functions.template.BuildingStatusTemplete(status);
+                            linebot227.Functions.LineTemplate.BuildingStatusTemplete(status);
 
 
                             //HttpClient client = new HttpClient();
