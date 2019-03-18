@@ -12,26 +12,48 @@ namespace linebot227
 {
     public partial class _default : System.Web.UI.Page
     {
+        isRock.LineBot.Bot bot = null;
         const string channelAccessToken = "fTBvt+oi30MpuWqTvT/KJDBuKDJ8iKxPhJLX5fHwT+bha1vEfZPfprFFQ7LrdgdyrDnx/yDe1C+hTbLtYxojWGRyAbRVz2iuok8WbUiZBeOn3gxlUjs5gpsGQmmySmmF9m/Uat9ZwLWxomFA3FZ6jgdB04t89/1O/w1cDnyilFU=";
         const string AdminUserId= "U8168367ec76c449dbdd98410d9333b8b";
-       // public object Label2;
+        //string channelAccessToken = "";
+        //string AdminUserId = "";
+        // public object Label2;
         public string Label2 { get; private set; }
         public string Label1 { get; private set; }
         public SQLcontroller sql = new SQLcontroller("192.168.3.195", "mydb", "sa", "leegood");
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+        { 
             Label2 = Request.QueryString["name"];
+            //bot = new isRock.LineBot.Bot(this.);
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
-            var bot = new Bot(channelAccessToken);
+            //var bot = new Bot(channelAccessToken);
             bot.PushMessage(AdminUserId, $"測試 {DateTime.Now.ToString()} ! ");
             //bot.PushMessage(AdminUserId, Label2);
             string s_url;
             s_url = "?name=" + Label2;
             Response.Redirect(s_url);     //queryString 使用完後重新導向新的網站
         }
+        //test WebForm
+        //protected void ChannelAccessToken(object sender, EventArgs e)
+        //{
+
+        //}
+        //protected void UserIDTxb(object sender, EventArgs e)s
+        //{
+
+        //}
+        //protected void MessageTxb(object sender, EventArgs e)
+        //{
+
+        //}
+        //protected void SendMessageBT(object sender, EventArgs e)
+        //{
+        //    var bot = new Bot(this.ChannelAccessTokenTxb.Text);
+        //    bot.PushMessage(AdminUserId, 1, 2);
+        //}
         //test SQL
         protected void Button2_selectSQL(object sender, EventArgs e)
         {
