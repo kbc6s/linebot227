@@ -11,6 +11,8 @@ namespace linebot227.Functions
     {
         const string channelAccessToken = "fTBvt+oi30MpuWqTvT/KJDBuKDJ8iKxPhJLX5fHwT+bha1vEfZPfprFFQ7LrdgdyrDnx/yDe1C+hTbLtYxojWGRyAbRVz2iuok8WbUiZBeOn3gxlUjs5gpsGQmmySmmF9m/Uat9ZwLWxomFA3FZ6jgdB04t89/1O/w1cDnyilFU=";
         const string SendTo = "U8168367ec76c449dbdd98410d9333b8b";
+
+        //首次登入模板
         public static void LoginTemplete(ButtonTemplateParameter ButtonTemplateParameter)
         {
             var bot = new Bot(channelAccessToken);
@@ -21,9 +23,11 @@ namespace linebot227.Functions
             //actions.Add(new isRock.LineBot.MessageAction()
             //{ label = "點選這邊等同用戶直接輸入某訊息", text = ButtonTemplateFunction.LineEvent });
             actions.Add(new isRock.LineBot.UriAction()
-            { label = "首次登入", uri = new Uri("http://kaiwen1995.com:3001/closeKai") });
-            actions.Add(new isRock.LineBot.UriAction()
-            { label = "設定推播訊息", uri = new Uri("https://kaiwen.azurewebsites.net/?name=" + ButtonTemplateParameter.LineID) });
+            { label = "首次登入", uri = new Uri("https://kaiwen.azurewebsites.net/WebForm1.aspx?name=" + ButtonTemplateParameter.LineID) });
+            //actions.Add(new isRock.LineBot.UriAction()
+            //{ label = "設定推播訊息", uri = new Uri("https://kaiwen.azurewebsites.net/?name=" + ButtonTemplateParameter.LineID) });
+            actions.Add(new isRock.LineBot.MessageAction()
+            { label = "設定推播訊息", text="還沒做好喔@@" });
 
 
 
@@ -39,7 +43,7 @@ namespace linebot227.Functions
             };
 
             //發送
-            bot.PushMessage(SendTo, ButtonTemplate);
+            bot.PushMessage(ButtonTemplateParameter.LineID, ButtonTemplate);
         }
         public static void BuildingStatusTemplete(ButtonTemplateParameter ButtonTemplateParameter)
         {

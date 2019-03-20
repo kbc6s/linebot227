@@ -48,9 +48,9 @@ namespace linebot227.Controllers
                             linebot227.Functions.LineTemplate.BuildingStatusTemplete(status);
 
 
-                            //HttpClient client = new HttpClient();
-                            //var uri = $"http://kaiwen1995.com:3001/openKai";
-                            //HttpResponseMessage response = client.GetAsync(uri).Result;
+                            HttpClient client = new HttpClient();
+                            var uri = $"http://kaiwen1995.com:3001/openKai";
+                            HttpResponseMessage response = client.GetAsync(uri).Result;
                         }
                     }
                     /*

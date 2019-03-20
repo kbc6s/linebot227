@@ -20,7 +20,7 @@ namespace linebot227
         // public object Label2;
         public string Label2 { get; private set; }
         public string Label1 { get; private set; }
-        public SQLcontroller sql = new SQLcontroller("192.168.3.195", "mydb", "sa", "leegood");
+        public SQLcontroller sql = new SQLcontroller("61.216.65.239", "mydb", "sa", "leegood");
 
         protected void Page_Load(object sender, EventArgs e)
         { 
@@ -60,7 +60,7 @@ namespace linebot227
             //var bot = new Bot(channelAccessToken);
             //bot.PushMessage(AdminUserId, 1,2);
 
-            //var sql = new SQLcontroller("192.168.3.195", "mydb", "sa", "leegood");
+            //var sql = new SQLcontroller("61.216.65.239", "mydb", "sa", "leegood");
             Console.WriteLine(sql.GetMemberInfo());
 
             //MemberInfo mi = new MemberInfo();
@@ -80,7 +80,7 @@ namespace linebot227
 
         protected void Button5_insertSQL(object sender, EventArgs e)
         {
-            var sql = new SQLcontroller("192.168.3.195", "mydb", "sa", "leegood");
+            var sql = new SQLcontroller("61.216.65.239", "mydb", "sa", "leegood");
             sql.InsertMemberInfo(new MemberInfo
             {
                 Email = "123@gmail.com",

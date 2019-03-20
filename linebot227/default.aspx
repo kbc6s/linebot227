@@ -15,21 +15,21 @@
 <body>
     <form id="form1" runat="server">
         <div>
-<%--            <asp:Label ID="label1" runat="server"></asp:Label>
+           <%-- <asp:Label ID="label1" runat="server"></asp:Label>
             <br />
             <br />
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Push Text Message" />
             <br />
-            <br />
+            <br />--%>
             <asp:Button ID="Button5" runat="server" OnClick="Button5_insertSQL" Text="Insert SQL" />
             <br />
             <br />
-            <asp:Button ID="Button6" runat="server" OnClick="Button4_deleteSQL" Text="Delete SQL" />
+          <%--  <asp:Button ID="Button6" runat="server" OnClick="Button4_deleteSQL" Text="Delete SQL" />
             <br />
             <br />
-            <asp:Button ID="Button4" runat="server" OnClick="Button4_sendMail" Text="send Email" />--%>
+            <asp:Button ID="Button4" runat="server" OnClick="Button4_sendMail" Text="send Email" />
             <br />
-            <br />
+            <br />--%>
             輸入ChannelAccessToken
             <br />
             <asp:TextBox ID="ChannelAccessToken" Name="ChannelAccessToken" CssClass="form-control" runat="server" placeholder="提示" Text=""></asp:TextBox>
@@ -39,7 +39,6 @@
             <br />
             <asp:TextBox ID="UserID" CssClass="form-control" runat="server" placeholder="提示" Text=""></asp:TextBox>
             <br />
-            <asp:TextBox ID="TextBox1" runat="server" style="margin-left: 417px">123</asp:TextBox>
             <br />
             輸入訊息
             <br />
