@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="linebot227.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="linebot227.WebForm1" %>
 
 <!DOCTYPE html>
 
@@ -14,12 +14,12 @@
             <br />
             輸入姓名
             <br />
-            <asp:TextBox ID="Txb1" Name="ChannelAccessToken" CssClass="form-control" runat="server" placeholder="提示" Text=""></asp:TextBox>
+            <asp:TextBox ID="Txb1" Name="ChannelAccessToken" CssClass="form-control" runat="server" Text=""></asp:TextBox>
             <br />
             <br />
             輸入Gmail
             <br />
-            <asp:TextBox ID="Txb2" CssClass="form-control" runat="server" placeholder="提示" Text=""></asp:TextBox>
+            <asp:TextBox ID="Txb2" CssClass="form-control" runat="server" Text=""></asp:TextBox>
             <br />
             <br />
    <%--         輸入訊息
@@ -27,16 +27,13 @@
             <asp:TextBox ID="Txb3" CssClass="form-control" runat="server" placeholder="提示" Text=""></asp:TextBox>
             <br />--%>
             <br />
-            送出
+            <asp:Button ID="Button1" CssClass="form-controll" OnClick="insertSQL" runat="server" Text="send" />
             <br />
             <br />
-            <asp:Button ID="Button1" CssClass="form-controll" OnClick="sendMessage" runat="server" Text="send" />
+<%--            <asp:Button ID="Button2" CssClass="form-controll" OnClick="selectSQL" runat="server" Text="testButton" />--%>
             <br />
             <br />
-            <asp:Button ID="Button2" CssClass="form-controll" OnClick="RestFul" runat="server" Text="sendRestful" />
-            <br />
-            <br />
-            <asp:Label ID="label" runat="server" Text="123" />
+<%--            <asp:Label ID="kai" Text="ttt" runat="server" />--%>
         </div>
     </form>
 </body>

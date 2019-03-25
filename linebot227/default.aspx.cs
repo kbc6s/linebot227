@@ -61,7 +61,7 @@ namespace linebot227
             //bot.PushMessage(AdminUserId, 1,2);
 
             //var sql = new SQLcontroller("61.216.65.239", "mydb", "sa", "leegood");
-            Console.WriteLine(sql.GetMemberInfo());
+            //Console.WriteLine(sql.GetMemberInfo());
 
             //MemberInfo mi = new MemberInfo();
             //mi.Email = "leegood@gmail.com";

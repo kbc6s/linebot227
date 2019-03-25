@@ -40,16 +40,37 @@ namespace linebot227
             HttpResponseMessage response = client.GetAsync(uri).Result;
             
         }
-        protected void sendMessage(object sender, EventArgs e)
+        //select SQL
+        //protected void selectSQL(object sender, EventArgs even)
+        //{
+        //    var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
+        //    string LineID = "'U8168367ec76c449dbdd98410d9333b8b'";
+        //    var reerer = sql.GetMemberInfo(Txb2.Text);
+        //    if (reerer.Count == 3)
+        //    {
+        //        kai.Text = "沒有權限";
+        //    }
+        //    else
+        //    {
+        //        kai.Text = "pass";
+        //    }
+        //}
+
+        //insert Member info to SQL
+        protected void insertSQL(object sender, EventArgs e)
         {
-            string queryString_url;
-            queryString_url = "?name=" + Label2;
+            //string queryString_url;
+            //queryString_url = "?name=" + Label2;
             //Response.Redirect(queryString_url);     //queryString 使用完後重新導向新的網站
             //var bot = new isRock.LineBot.Bot();
             var name = Txb1.Text;
             var mail = Txb2.Text;
+            
             //var message = Txb3.Text;
-            var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood");
+            var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
+
+            var result = sql.GetMemberInfo(Label2, "'ok'");
+
             sql.InsertMemberInfo(new MemberInfo
             {
                 Email = mail,

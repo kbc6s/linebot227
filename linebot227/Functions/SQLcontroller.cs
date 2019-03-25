@@ -16,18 +16,33 @@ namespace linebot227.Functions
         {
             strConnection = string.Format("server = {0}; database = {1}; uid = {2}; pwd = {3}; Connect Timeout=1;", Host, DB, User, Password);
         }
-
         //select
-        public List<MemberInfo> GetMemberInfo()
+        public class GetmemberInfo
         {
-            //ServerInfo Info = new ServerInfo();
-            List<MemberInfo> results = null;
-            using (SqlConnection conn = new SqlConnection(strConnection))
+            public List<MemberInfo> GetMemberInfo(string LineID, string Role)
             {
-                string strSql = "SELECT [Seq],[Email],[Name],[LineID],[Valid],[AuthTime] FROM[mydb].[dbo].[MemberInfo]";
-                results = conn.Query<MemberInfo>(strSql).ToList();
+                //ServerInfo Info = new ServerInfo();
+                List<MemberInfo> results = null;
+                using (SqlConnection conn = new SqlConnection(strConnection))
+                {
+                    //string strSql = "SELECT [Seq],[Email],[Name],[LineID],[Valid],[AuthTime] FROM[mydb].[dbo].[MemberInfo]";
+                    string strSql = "SELECT [LineID] FROM[mydb].[dbo].[MemberInfo] where [LineID] = '" + LineID + "' and [Valid]='" + Role + "'";
+                    results = conn.Query<MemberInfo>(strSql).ToList();
+                }
+                return results;
             }
-            return results;
+            public List<MemberInfo> CheckDetail(string LineID, string Role)
+            {
+                //ServerInfo Info = new ServerInfo();
+                List<MemberInfo> results = null;
+                using (SqlConnection conn = new SqlConnection(strConnection))
+                {
+                    //string strSql = "SELECT [Seq],[Email],[Name],[LineID],[Valid],[AuthTime] FROM[mydb].[dbo].[MemberInfo]";
+                    string strSql = "SELECT [LineID] FROM[mydb].[dbo].[MemberInfo] where [LineID] = '" + LineID + "'";
+                    results = conn.Query<MemberInfo>(strSql).ToList();
+                }
+                return results;
+            }
         }
         //insert
         public bool InsertMemberInfo(MemberInfo member)

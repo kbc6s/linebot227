@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
+using linebot227.Functions;
 
 namespace linebot227.Controllers
 {
@@ -19,6 +20,7 @@ namespace linebot227.Controllers
         [HttpPost]
         public IHttpActionResult POST()
         {
+            var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
             try
             {
                 //設定ChannelAccessToken(或抓取Web.Config)
@@ -42,15 +44,26 @@ namespace linebot227.Controllers
                         }
                         if (LineEvent.message.text == "監看狀態")
                         {
-                            ButtonTemplateParameter status = new ButtonTemplateParameter();
-                            status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
-                            status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
-                            linebot227.Functions.LineTemplate.BuildingStatusTemplete(status);
-
-
-                            HttpClient client = new HttpClient();
-                            var uri = $"http://kaiwen1995.com:3001/openKai";
-                            HttpResponseMessage response = client.GetAsync(uri).Result;
+                            var result = sql.GetMemberInfo(LineEvent.source.userId,"'null'");
+                            //var result1 = sql.GetMemberInfo(LineEvent.source.userId, "'ok'");
+                            if (result.Count == 0) {
+                                this.PushMessage(LineEvent.source.userId, "請至個人設定取得權限");
+                            }
+                            else if (result.Count != 0)
+                            {
+                                this.PushMessage(LineEvent.source.userId, "尚未進行驗證");
+                            }
+                            else
+                            {
+                                ButtonTemplateParameter status = new ButtonTemplateParameter();
+                                status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
+                                status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
+                                LineTemplate.BuildingStatusTemplete(status);
+                            }
+                            
+                            //HttpClient client = new HttpClient();
+                            //var uri = $"http://kaiwen1995.com:3001/openKai";
+                            //HttpResponseMessage response = client.GetAsync(uri).Result;
                         }
                     }
                     /*
