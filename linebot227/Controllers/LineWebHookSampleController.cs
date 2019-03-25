@@ -44,10 +44,15 @@ namespace linebot227.Controllers
                         }
                         if (LineEvent.message.text == "監看狀態")
                         {
-                            var result = sql.GetMemberInfo(LineEvent.source.userId,"'null'");
+                            var result = sql.CheckDetail(LineEvent.source.userId);
+                            var result1 = sql.CheckDetail(LineEvent.source.userId,"'ok'");
                             //var result1 = sql.GetMemberInfo(LineEvent.source.userId, "'ok'");
-                            if (result.Count == 0) {
-                                this.PushMessage(LineEvent.source.userId, "請至個人設定取得權限");
+                            if (result1.Count != 0)
+                            {
+                                ButtonTemplateParameter status = new ButtonTemplateParameter();
+                                status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
+                                status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
+                                LineTemplate.BuildingStatusTemplete(status);
                             }
                             else if (result.Count != 0)
                             {
@@ -55,10 +60,7 @@ namespace linebot227.Controllers
                             }
                             else
                             {
-                                ButtonTemplateParameter status = new ButtonTemplateParameter();
-                                status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
-                                status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
-                                LineTemplate.BuildingStatusTemplete(status);
+                                this.PushMessage(LineEvent.source.userId, "請至個人設定登入取得權限");
                             }
                             
                             //HttpClient client = new HttpClient();

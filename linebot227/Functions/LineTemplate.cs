@@ -23,7 +23,7 @@ namespace linebot227.Functions
             //actions.Add(new isRock.LineBot.MessageAction()
             //{ label = "點選這邊等同用戶直接輸入某訊息", text = ButtonTemplateFunction.LineEvent });
             actions.Add(new isRock.LineBot.UriAction()
-            { label = "首次登入", uri = new Uri("https://7c0cf2a5.ngrok.io/WebForm1.aspx?name=" + ButtonTemplateParameter.LineID) });
+            { label = "首次登入", uri = new Uri("https://7c0cf2a5.ngrok.io/login.aspx?name=" + ButtonTemplateParameter.LineID) });
             //actions.Add(new isRock.LineBot.UriAction()
             //{ label = "設定推播訊息", uri = new Uri(https://7c0cf2a5.ngrok.io/WebForm1.aspx" + ButtonTemplateParameter.LineID) });
             actions.Add(new isRock.LineBot.MessageAction()

@@ -9,7 +9,7 @@ using Dapper;
 using linebot227.Functions;
 using linebot227.Models;
 using System.Web.Routing;
-using System.Net.Http;
+using System.Net.Http; 
 using System.IO;
 using Newtonsoft.Json;
 
@@ -69,16 +69,23 @@ namespace linebot227
             //var message = Txb3.Text;
             var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
 
-            var result = sql.GetMemberInfo(Label2, "'ok'");
-
-            sql.InsertMemberInfo(new MemberInfo
+            var result = sql.CheckDetail(Label2);
+            if (result.Count == 0)
             {
-                Email = mail,
-                Name = name,
-                LineID = Label2,
-                //Valid = "",
-                AuthTime = DateTime.Now
-            });
+                sql.InsertMemberInfo(new MemberInfo
+                {
+                    Email = mail,
+                    Name = name,
+                    LineID = Label2,
+                    //Valid = "",
+                    AuthTime = DateTime.Now
+                });
+                kai.Text = "申請成功";
+            }
+            else
+            {
+                kai.Text = "重複的LineID";
+            }
         }
     }
 }

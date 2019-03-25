@@ -31,9 +31,7 @@
             <br />
             <br />
 <%--            <asp:Button ID="Button2" CssClass="form-controll" OnClick="selectSQL" runat="server" Text="testButton" />--%>
-            <br />
-            <br />
-<%--            <asp:Label ID="kai" Text="ttt" runat="server" />--%>
+            <asp:Label ID="kai" Text="" runat="server" />
         </div>
     </form>
 </body>
