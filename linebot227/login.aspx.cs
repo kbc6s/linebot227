@@ -65,11 +65,15 @@ namespace linebot227
             //var bot = new isRock.LineBot.Bot();
             var name = Txb1.Text;
             var mail = Txb2.Text;
-            
+            if(name == "" || mail == "")
+            {
+                kai.Text = "不能空白喔";
+                return;
+            }
             //var message = Txb3.Text;
             var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
 
-            var result = sql.CheckDetail(Label2);
+            var result = sql.CheckMember(Label2);
             if (result.Count == 0)
             {
                 sql.InsertMemberInfo(new MemberInfo
@@ -80,11 +84,11 @@ namespace linebot227
                     //Valid = "",
                     AuthTime = DateTime.Now
                 });
-                kai.Text = "申請成功";
+                kai.Text = "申請成功!";
             }
             else
             {
-                kai.Text = "重複的LineID";
+                kai.Text = "重複的帳號";
             }
         }
     }

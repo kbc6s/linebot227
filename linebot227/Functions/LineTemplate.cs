@@ -74,7 +74,7 @@ namespace linebot227.Functions
             };
 
             //發送
-            bot.PushMessage(SendTo, ButtonTemplate);
+            bot.PushMessage(ButtonTemplateParameter.LineID, ButtonTemplate);
         }
     }
 }

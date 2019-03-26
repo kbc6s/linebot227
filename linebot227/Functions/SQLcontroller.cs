@@ -18,7 +18,8 @@ namespace linebot227.Functions
         }
 
         //select
-        public List<MemberInfo> CheckDetail(string LineID, string Role)
+        //搜尋LineID + 權限
+        public List<MemberInfo> CheckMember(string LineID, string Role)
         {
             //ServerInfo Info = new ServerInfo();
             List<MemberInfo> results = null;
@@ -30,18 +31,68 @@ namespace linebot227.Functions
             }
             return results;
         }
-        public List<MemberInfo> CheckDetail(string LineID)
+
+        //搜尋LineID
+        public List<MemberInfo> CheckMember(string SearchItem)
         {
+            List<MemberInfo> results = null;
+            if (SearchItem.Count() == 33)
+            {
+                using (SqlConnection conn = new SqlConnection(strConnection))
+                {
+                    //string strSql = "SELECT [Seq],[Email],[Name],[LineID],[Valid],[AuthTime] FROM[mydb].[dbo].[MemberInfo]";
+                    string strSql = "SELECT * FROM[mydb].[dbo].[MemberInfo] where [LineID] = '" + SearchItem + "'";
+                    results = conn.Query<MemberInfo>(strSql).ToList();
+                }
+            }
+            else
+            {
+                using (SqlConnection conn = new SqlConnection(strConnection))
+                {
+                    //string strSql = "SELECT [Seq],[Email],[Name],[LineID],[Valid],[AuthTime] FROM[mydb].[dbo].[MemberInfo]";
+                    string strSql = "SELECT * FROM[mydb].[dbo].[MemberInfo] where [Name] = '" + SearchItem + "'";
+                    results = conn.Query<MemberInfo>(strSql).ToList();
+                }
+            }
+            
+            
+            return results;
+        }
+
+        //搜尋名子 + 權限
+        public List<MemberInfo> CheckMember(string name,int role)
+        {
+            string[] memberType = new string[] { "is NULL", "'ok'" };
             //ServerInfo Info = new ServerInfo();
             List<MemberInfo> results = null;
             using (SqlConnection conn = new SqlConnection(strConnection))
             {
                 //string strSql = "SELECT [Seq],[Email],[Name],[LineID],[Valid],[AuthTime] FROM[mydb].[dbo].[MemberInfo]";
-                string strSql = "SELECT [LineID] FROM[mydb].[dbo].[MemberInfo] where [LineID] = '" + LineID + "'";
+                string strSql = "SELECT * FROM [mydb].[dbo].[MemberInfo] where [Name] = '" + name + "' and [Valid] " + memberType[role] ;
                 results = conn.Query<MemberInfo>(strSql).ToList();
             }
             return results;
         }
+        //select 出一個list
+        //public List<MemberInfo> LoadData()
+        //{
+        //    //ServerInfo Info = new ServerInfo();
+        //    List<MemberInfo> results = null;
+        //    using (SqlConnection conn = new SqlConnection(strConnection))
+        //    {
+        //        //string strSql = "SELECT [Seq],[Email],[Name],[LineID],[Valid],[AuthTime] FROM[mydb].[dbo].[MemberInfo]";
+        //        string strSql = "select * [mydb].[dbo].[MemberInfo] where [role] is NULL";
+        //        results = conn.Query<MemberInfo>(strSql).ToList();
+        //    }
+        //    return results;
+        //}
+
+
+
+        
+
+
+
 
         //insert
         public bool InsertMemberInfo(MemberInfo member)
@@ -69,11 +120,11 @@ namespace linebot227.Functions
             return false;
         }
         //update
-        public bool UpdateMemberInfo(int seq)
+        public bool UpdateMemberInfo(string seq)
         {
             using (SqlConnection conn = new SqlConnection(strConnection))
             {
-                string strSql = "UPDATE MemberInfo SET Email = 'kevin@leegood.com.tw' WHERE seq = " + seq.ToString();
+                string strSql = "UPDATE MemberInfo SET Valid = 'ok' WHERE seq = " + seq.ToString();
                 var result = conn.Execute(strSql);
                 if (result == 1)
                     return true;

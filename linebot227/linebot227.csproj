@@ -106,6 +106,7 @@
       <DependentUpon>admin.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\EditMemberInfo.cs" />
     <Compile Include="Controllers\LineWebHookSampleController.cs" />
     <Compile Include="Functions\RouteConfig.cs" />
     <Compile Include="Functions\SQLcontroller.cs" />

@@ -44,12 +44,12 @@ namespace linebot227.Controllers
                         }
                         if (LineEvent.message.text == "監看狀態")
                         {
-                            var result = sql.CheckDetail(LineEvent.source.userId);
-                            var result1 = sql.CheckDetail(LineEvent.source.userId,"'ok'");
-                            //var result1 = sql.GetMemberInfo(LineEvent.source.userId, "'ok'");
+                            var result = sql.CheckMember(LineEvent.source.userId);
+                            var result1 = sql.CheckMember(LineEvent.source.userId,"'ok'");
                             if (result1.Count != 0)
                             {
                                 ButtonTemplateParameter status = new ButtonTemplateParameter();
+                                status.LineID = LineEvent.source.userId;
                                 status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
                                 status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
                                 LineTemplate.BuildingStatusTemplete(status);
