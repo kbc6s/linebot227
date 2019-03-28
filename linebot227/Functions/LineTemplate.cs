@@ -45,6 +45,8 @@ namespace linebot227.Functions
             //發送
             bot.PushMessage(ButtonTemplateParameter.LineID, ButtonTemplate);
         }
+
+        //樓宇監控模板
         public static void BuildingStatusTemplete(ButtonTemplateParameter ButtonTemplateParameter)
         {
             var bot = new Bot(channelAccessToken);
@@ -59,6 +61,37 @@ namespace linebot227.Functions
             actions.Add(new isRock.LineBot.UriAction()
             { label = "4F 監看", uri = new Uri(ButtonTemplateParameter.ViewURL2) });
 
+
+
+            //單一Button Template Message
+            var ButtonTemplate = new isRock.LineBot.ButtonsTemplate()
+            {
+                altText = "監看狀態",
+                text = "Text",
+                //title = "Title",
+
+                //設定圖片
+                thumbnailImageUrl = new Uri("https://cdn0.iconfinder.com/data/icons/linkedin-ui-colored/48/JD-12-512.png"),
+                actions = actions //設定回覆動作
+            };
+
+            //發送
+            bot.PushMessage(ButtonTemplateParameter.LineID, ButtonTemplate);
+        }
+        //遠端控制
+        public static void RemoteController(ButtonTemplateParameter ButtonTemplateParameter)
+        {
+            var bot = new Bot(channelAccessToken);
+            //建立actions，作為ButtonTemplate的用戶回覆行為
+            var actions = new List<isRock.LineBot.TemplateActionBase>();
+            //actions.Add(new isRock.LineBot.MessageAction()
+            //{ label = "首次登入", text = "首次登入" });
+            //actions.Add(new isRock.LineBot.MessageAction()
+            //{ label = "點選這邊等同用戶直接輸入某訊息", text = ButtonTemplateFunction.LineEvent });
+            //actions.Add(new isRock.LineBot.PostbackAction()
+            //{ label = "空調控制postback", data = "123456789" });     //ButtonTemplateParameter.postback.ToString()
+            actions.Add(new isRock.LineBot.MessageAction()
+            { label = "6F 空調", text = ButtonTemplateParameter.LineEvent });
 
 
             //單一Button Template Message

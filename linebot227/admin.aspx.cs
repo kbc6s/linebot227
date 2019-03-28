@@ -89,8 +89,9 @@ namespace linebot227
             else
             {
                 Label2.Visible = false;
+                Label3.Visible = true;
                 Button1.Visible = false;
-                Label2.Text = "查無資料";
+                Label3.Text = "查無資料";
             }
 
             //Label2.Text = result.;

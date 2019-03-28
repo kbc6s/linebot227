@@ -8,6 +8,8 @@ using System.Net.Http;
 using System.Text;
 using System.Web.Http;
 using linebot227.Functions;
+using RestSharp;
+using System.Threading;
 
 namespace linebot227.Controllers
 {
@@ -42,11 +44,35 @@ namespace linebot227.Controllers
                             info.LineID = LineEvent.source.userId;
                             linebot227.Functions.LineTemplate.LoginTemplete(info);
                         }
+                        //if (LineEvent.message.text == "監看狀態")
+                        //{
+                        //    var result = sql.CheckMember(LineEvent.source.userId);
+                        //    var result1 = sql.CheckMember(LineEvent.source.userId,"'ok'");
+                        //    if (result1.Count != 0)
+                        //    {
+                        //        ButtonTemplateParameter status = new ButtonTemplateParameter();
+                        //        status.LineID = LineEvent.source.userId;
+                        //        status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
+                        //        status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
+                        //        LineTemplate.BuildingStatusTemplete(status);
+                        //    }
+                        //    else if (result.Count != 0)
+                        //    {
+                        //        this.PushMessage(LineEvent.source.userId, "尚未進行驗證");
+                        //    }
+                        //    else
+                        //    {
+                        //        this.PushMessage(LineEvent.source.userId, "請至個人設定登入取得權限");
+                        //    }
+
+                        //    //HttpClient client = new HttpClient();
+                        //    //var uri = $"http://kaiwen1995.com:3001/openKai";
+                        //    //HttpResponseMessage response = client.GetAsync(uri).Result;
+                        //}
                         if (LineEvent.message.text == "監看狀態")
                         {
-                            var result = sql.CheckMember(LineEvent.source.userId);
-                            var result1 = sql.CheckMember(LineEvent.source.userId,"'ok'");
-                            if (result1.Count != 0)
+                            var check = new Verification();
+                            if (check.VeriMember(LineEvent.source.userId))
                             {
                                 ButtonTemplateParameter status = new ButtonTemplateParameter();
                                 status.LineID = LineEvent.source.userId;
@@ -54,24 +80,56 @@ namespace linebot227.Controllers
                                 status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
                                 LineTemplate.BuildingStatusTemplete(status);
                             }
-                            else if (result.Count != 0)
-                            {
-                                this.PushMessage(LineEvent.source.userId, "尚未進行驗證");
-                            }
-                            else
-                            {
-                                this.PushMessage(LineEvent.source.userId, "請至個人設定登入取得權限");
-                            }
-                            
-                            //HttpClient client = new HttpClient();
-                            //var uri = $"http://kaiwen1995.com:3001/openKai";
-                            //HttpResponseMessage response = client.GetAsync(uri).Result;
                         }
+                        if (LineEvent.message.text == "遠端控制")
+                        {
+                            var check = new Verification();
+                            if (check.VeriMember(LineEvent.source.userId))
+                            {
+                                ButtonTemplateParameter status = new ButtonTemplateParameter();
+                                status.LineID = LineEvent.source.userId;
+                                //status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
+                                //status.postback.Add("postback");
+                                status.LineEvent = "開啟空調";
+                                LineTemplate.RemoteController(status);
+                                
+                            }
+                        }
+                        if(LineEvent.message.text == "開啟空調")
+                        {
+                            var check = new Verification();
+                            var client = new RestClient("http://192.168.3.69/WaWebService/Json/SetTagValue/Leegood");
+                            var request = new RestRequest(Method.POST);
+                            //request.AddHeader("Postman-Token", "13abdf53-0230-47e4-a935-22cc5d1dec40");
+                            request.AddHeader("cache-control", "no-cache");
+                            request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
+                            request.AddHeader("Content-Type", "application/json");
+                            request.AddParameter("undefined", "{\"Tags\": [{\"Name\": \"020032\",\"Value\": 1}]}", ParameterType.RequestBody);
+                            IRestResponse response = client.Execute(request);
+                            
+                            Thread.Sleep(2000); //Delay 1秒
+                            var purse = new RestRequest(Method.POST);
+                            //request.AddHeader("Postman-Token", "13abdf53-0230-47e4-a935-22cc5d1dec40");
+                            purse.AddHeader("cache-control", "no-cache");
+                            purse.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
+                            purse.AddHeader("Content-Type", "application/json");
+                            purse.AddParameter("undefined", "{\"Tags\": [{\"Name\": \"020032\",\"Value\": 0}]}", ParameterType.RequestBody);
+                            IRestResponse purseResponse = client.Execute(purse);
+
+                        }
+                    }
+                    if(LineEvent.type == "postback")
+                    {
+                        var msg = $"data : {LineEvent.postback.data}";
+                        msg += $"\n Params.date : {LineEvent.postback.Params.date + ""}";
+                        msg += $"\n Params.datetime : {LineEvent.postback.Params.datetime + ""}";
+                        msg += $"\n Params.time : {LineEvent.postback.Params.time + ""}";
+                        this.ReplyMessage(LineEvent.replyToken, msg);
                     }
                     /*
                     //Post : 傳送表單
                     HttpClient client = new HttpClient();
-                    var uri = $"網址";
+                    var uri = $"http://192.168.3.69/WaWebService/Json/SetTagValue/Leegood";
 
                     Class1 myclass = new Class1();
                     myclass.MyProperty = 123;

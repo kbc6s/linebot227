@@ -106,7 +106,7 @@ namespace linebot227
             { label = "點選這邊等同用戶直接輸入某訊息", text = "/例如這樣" });
             actions.Add(new isRock.LineBot.UriAction()
             { label = "點這邊開啟網頁", uri = new Uri("http://www.google.com") });
-            actions.Add(new isRock.LineBot.PostbackAction()
+            actions.Add(new isRock.LineBot.PostbackAction
             { label = "點這邊發生postack", data = "abc=aaa&def=111" });
 
             
