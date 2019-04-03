@@ -7,6 +7,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using linebot227.Models;
 using linebot227.Functions;
+using RestSharp;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Threading;
 
 namespace linebot227
 {
@@ -70,16 +74,6 @@ namespace linebot227
             //mi.Valid = "not yet";
             //mi.AuthTime = DateTime.Now;
             //sql.InsertMemberInfo(mi);
-
-        }
-
-        protected void Button4_deleteSQL(object sender, EventArgs e)
-        {
-            sql.DeleteMemberInfo(9);
-        }
-
-        protected void Button5_insertSQL(object sender, EventArgs e)
-        {
             var sql = new SQLcontroller("61.216.65.239", "mydb", "sa", "leegood");
             sql.InsertMemberInfo(new MemberInfo
             {
@@ -90,6 +84,35 @@ namespace linebot227
                 AuthTime = DateTime.Now
             });
             //Mail_Server.MailController.SendEmail();
+        }
+
+        protected void Button4_deleteSQL(object sender, EventArgs e)
+        {
+            sql.DeleteMemberInfo(9);
+        }
+
+        protected void Button5_insertSQL(object sender, EventArgs e)
+        {
+            //var sql = new SQLcontroller("61.216.65.239", "mydb", "sa", "leegood");
+            //sql.InsertMemberInfo(new MemberInfo
+            //{
+            //    Email = "123@gmail.com",
+            //    Name = "kaiiak",
+            //    LineID = "23456789qwertyuisdfghj",
+            //    Valid = "OK",
+            //    AuthTime = DateTime.Now
+            //});
+            //Mail_Server.MailController.SendEmail();
+
+            // ============= test =============
+            var rest = new RestAPI();
+            var qwer = rest.GetValue("DO1");
+            //var eee = rest.SetValue("DO1", 1);
+            //         ========= parse JSON ============
+            //var eee = response.Content;
+            //dynamic result = JValue.Parse(eee);
+            //var qwer = result.Values[0].Name;
+            int rrr = 123;
         }
 
         protected void Button4_sendMail(object sender, EventArgs e)

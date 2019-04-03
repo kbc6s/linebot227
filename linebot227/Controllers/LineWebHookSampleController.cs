@@ -17,7 +17,7 @@ namespace linebot227.Controllers
     {
         const string channelAccessToken = "fTBvt+oi30MpuWqTvT/KJDBuKDJ8iKxPhJLX5fHwT+bha1vEfZPfprFFQ7LrdgdyrDnx/yDe1C+hTbLtYxojWGRyAbRVz2iuok8WbUiZBeOn3gxlUjs5gpsGQmmySmmF9m/Uat9ZwLWxomFA3FZ6jgdB04t89/1O/w1cDnyilFU=";
         const string AdminUserId= "U8168367ec76c449dbdd98410d9333b8b";
-
+        Verification check = new Verification();
         [Route("api/LineWebHookSample")]
         [HttpPost]
         public IHttpActionResult POST()
@@ -69,52 +69,46 @@ namespace linebot227.Controllers
                         //    //var uri = $"http://kaiwen1995.com:3001/openKai";
                         //    //HttpResponseMessage response = client.GetAsync(uri).Result;
                         //}
-                        if (LineEvent.message.text == "監看狀態")
+                        if (LineEvent.message.text == "監看狀態" && check.VeriMember(LineEvent.source.userId))
                         {
-                            var check = new Verification();
-                            if (check.VeriMember(LineEvent.source.userId))
-                            {
-                                ButtonTemplateParameter status = new ButtonTemplateParameter();
-                                status.LineID = LineEvent.source.userId;
-                                status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
-                                status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
+                            ButtonTemplateParameter status = new ButtonTemplateParameter();
+                            status.LineID = LineEvent.source.userId;
+                            status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
+                            status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
                                 LineTemplate.BuildingStatusTemplete(status);
-                            }
                         }
-                        if (LineEvent.message.text == "遠端控制")
+                        if (LineEvent.message.text == "遠端控制" && check.VeriMember(LineEvent.source.userId))
                         {
-                            var check = new Verification();
-                            if (check.VeriMember(LineEvent.source.userId))
-                            {
-                                ButtonTemplateParameter status = new ButtonTemplateParameter();
-                                status.LineID = LineEvent.source.userId;
-                                //status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
-                                //status.postback.Add("postback");
-                                status.LineEvent = "開啟空調";
-                                LineTemplate.RemoteController(status);
-                                
-                            }
-                        }
-                        if(LineEvent.message.text == "開啟空調")
-                        {
-                            var check = new Verification();
-                            var client = new RestClient("http://192.168.3.69/WaWebService/Json/SetTagValue/Leegood");
+                            var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
                             var request = new RestRequest(Method.POST);
-                            //request.AddHeader("Postman-Token", "13abdf53-0230-47e4-a935-22cc5d1dec40");
-                            request.AddHeader("cache-control", "no-cache");
                             request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
                             request.AddHeader("Content-Type", "application/json");
-                            request.AddParameter("undefined", "{\"Tags\": [{\"Name\": \"020032\",\"Value\": 1}]}", ParameterType.RequestBody);
+                            request.AddParameter("undefined", "{\"Tags\": [{\"Name\": \"DO1\"}]}", ParameterType.RequestBody);
                             IRestResponse response = client.Execute(request);
-                            
+
+                            ButtonTemplateParameter status = new ButtonTemplateParameter();
+                            status.LineID = LineEvent.source.userId;
+                            status.LineEvent = "開啟空調";
+                            status.Title = "12345";
+                            LineTemplate.RemoteController(status);
+                        }
+                        if(LineEvent.message.text == "開啟空調" && check.VeriMember(LineEvent.source.userId))
+                        {
+                            var client = new RestClient("http://192.168.3.69/WaWebService/Json/SetTagValue/Leegood");
+                            var request = new RestRequest(Method.POST);
+                            request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
+                            request.AddHeader("Content-Type", "application/json");
+                            request.AddParameter("undefined", "{\"Tags\": [{\"Name\": \"DO1\",\"Value\": 1}]}", ParameterType.RequestBody);
+                            IRestResponse response = client.Execute(request);
                             Thread.Sleep(2000); //Delay 1秒
                             var purse = new RestRequest(Method.POST);
-                            //request.AddHeader("Postman-Token", "13abdf53-0230-47e4-a935-22cc5d1dec40");
-                            purse.AddHeader("cache-control", "no-cache");
                             purse.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
                             purse.AddHeader("Content-Type", "application/json");
-                            purse.AddParameter("undefined", "{\"Tags\": [{\"Name\": \"020032\",\"Value\": 0}]}", ParameterType.RequestBody);
+                            purse.AddParameter("undefined", "{\"Tags\": [{\"Name\": \"DO1\",\"Value\": 0}]}", ParameterType.RequestBody); //020032
                             IRestResponse purseResponse = client.Execute(purse);
+                        }
+                        if(LineEvent.message.text == "檢查門窗" && check.VeriMember(LineEvent.source.userId))
+                        {
 
                         }
                     }

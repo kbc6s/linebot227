@@ -98,7 +98,7 @@ namespace linebot227.Functions
             var ButtonTemplate = new isRock.LineBot.ButtonsTemplate()
             {
                 altText = "監看狀態",
-                text = "Text",
+                text = ButtonTemplateParameter.Title,
                 //title = "Title",
 
                 //設定圖片

@@ -15,5 +15,6 @@ namespace linebot227.Models
         public string ViewURL1 { get; set; }
         public string ViewURL2 { get; set; }
         public List<string> postback{ get; set; }
+        public string Title { get; set; }
     }
 }
