@@ -105,9 +105,35 @@ namespace linebot227
             //Mail_Server.MailController.SendEmail();
 
             // ============= test =============
-            var rest = new RestAPI();
-            var qwer = rest.GetValue("DO1");
-            //var eee = rest.SetValue("DO1", 1);
+            RestAPI api = new RestAPI();
+            var points = new List<int>();
+            var pointName = new List<string>();
+
+            pointName.Add("系統部窗戶");
+            pointName.Add("大門");
+            pointName.Add("測試點");
+            points.Add(api.GetValue("BA_020028"));     //系統部窗戶
+            points.Add(api.GetValue("020030"));          //大門 value是1代表門是開的  GetValue參數改成list 較恰當
+            points.Add(api.GetValue("DO1"));             //測試點
+            bool isIn = points.Contains(1);
+            string openStatus="";
+            int count = 0;
+            if (isIn)
+            {
+                foreach (var point in points)
+                {
+                    count++;
+                    if (point == 1)
+                    {
+                        openStatus += pointName[count-1];
+                        //openStatus += pointName[2];
+                    }
+                }
+            }
+            else
+            {
+                //門窗都關好了
+            }
             //         ========= parse JSON ============
             //var eee = response.Content;
             //dynamic result = JValue.Parse(eee);

@@ -23,9 +23,9 @@ namespace linebot227.Functions
             //actions.Add(new isRock.LineBot.MessageAction()
             //{ label = "點選這邊等同用戶直接輸入某訊息", text = ButtonTemplateFunction.LineEvent });
             actions.Add(new isRock.LineBot.UriAction()
-            { label = "首次登入", uri = new Uri("https://7c0cf2a5.ngrok.io/login.aspx?name=" + ButtonTemplateParameter.LineID) });
+            { label = "首次登入", uri = new Uri("https://9e90d783.ngrok.io/login.aspx?name=" + ButtonTemplateParameter.LineID) });
             //actions.Add(new isRock.LineBot.UriAction()
-            //{ label = "設定推播訊息", uri = new Uri(https://7c0cf2a5.ngrok.io/WebForm1.aspx" + ButtonTemplateParameter.LineID) });
+            //{ label = "設定推播訊息", uri = new Uri(https://9e90d783.ngrok.io/WebForm1.aspx" + ButtonTemplateParameter.LineID) });
             actions.Add(new isRock.LineBot.MessageAction()
             { label = "設定推播訊息", text="還沒做好喔@@" });
 
@@ -60,7 +60,8 @@ namespace linebot227.Functions
             { label = "6F 監看", uri = new Uri(ButtonTemplateParameter.ViewURL1) });
             actions.Add(new isRock.LineBot.UriAction()
             { label = "4F 監看", uri = new Uri(ButtonTemplateParameter.ViewURL2) });
-
+            actions.Add(new isRock.LineBot.PostbackAction()
+            { label = "空調控制postback", data = "123456789" });
 
 
             //單一Button Template Message
@@ -88,8 +89,8 @@ namespace linebot227.Functions
             //{ label = "首次登入", text = "首次登入" });
             //actions.Add(new isRock.LineBot.MessageAction()
             //{ label = "點選這邊等同用戶直接輸入某訊息", text = ButtonTemplateFunction.LineEvent });
-            //actions.Add(new isRock.LineBot.PostbackAction()
-            //{ label = "空調控制postback", data = "123456789" });     //ButtonTemplateParameter.postback.ToString()
+            actions.Add(new isRock.LineBot.PostbackAction()
+            { label = "空調控制postback", data = "123456789" });     //ButtonTemplateParameter.postback.ToString()
             actions.Add(new isRock.LineBot.MessageAction()
             { label = "6F 空調", text = ButtonTemplateParameter.LineEvent });
 
@@ -102,12 +103,74 @@ namespace linebot227.Functions
                 //title = "Title",
 
                 //設定圖片
-                thumbnailImageUrl = new Uri("https://cdn0.iconfinder.com/data/icons/linkedin-ui-colored/48/JD-12-512.png"),
+                thumbnailImageUrl = new Uri("https://cdn2.iconfinder.com/data/icons/essential-web-5/50/setting-adjust-control-panel-equalizer-256.png"),
                 actions = actions //設定回覆動作
             };
 
             //發送
             bot.PushMessage(ButtonTemplateParameter.LineID, ButtonTemplate);
+        }
+        // 遠端控制Carousel
+        public static void CarouselTemplateTest(ButtonTemplateParameter ButtonTemplateParameter)
+        {
+            var bot = new Bot(channelAccessToken);
+            //建立actions，作為ButtonTemplate的用戶回覆行為
+            //=======6F==========
+            var actions6 = new List<isRock.LineBot.TemplateActionBase>();
+            actions6.Add(new isRock.LineBot.MessageAction()
+            { label = "6F 大門", text = "開六樓的門" });
+            actions6.Add(new isRock.LineBot.MessageAction()
+            { label = "6F 空調", text = "開啟6樓空調" });
+            //=======4F==========
+            var actions4 = new List<isRock.LineBot.TemplateActionBase>();
+            actions4.Add(new isRock.LineBot.MessageAction()
+            { label = "4F 大門", text = "開四樓的門" });
+            actions4.Add(new isRock.LineBot.MessageAction()
+            { label = "4F 空調", text = "開啟4樓空調" });
+            //=======266==========
+            var actions266 = new List<isRock.LineBot.TemplateActionBase>();
+            actions266.Add(new isRock.LineBot.MessageAction()
+            { label = "266大門", text = "開266的門" });
+            actions266.Add(new isRock.LineBot.MessageAction()
+            { label = "266", text = "266沒空調喔@@" });
+
+            //製作模板框架
+            // =======6樓=======
+            var ButtonTemplate6F = new isRock.LineBot.Column
+            {
+                text = "6樓",
+                title = "6樓",
+
+                //設定圖片
+                thumbnailImageUrl = new Uri("https://cdn3.iconfinder.com/data/icons/letters-and-numbers-1/32/number_6_blue-256.png"),
+                actions = actions6 //設定回覆動作
+            };
+            //======= 4樓 =======
+             var ButtonTemplate4F = new isRock.LineBot.Column
+            {
+                 text = "4樓",
+                 title = "4樓",
+
+                 //設定圖片
+                 thumbnailImageUrl = new Uri("https://cdn3.iconfinder.com/data/icons/letters-and-numbers-1/32/number_4_green-256.png"),
+                 actions = actions4 //設定回覆動作
+            };
+            //=========266======
+            var ButtonTemplate266 = new isRock.LineBot.Column
+            {
+                text = "266",
+                title = "266",
+
+                //設定圖片
+                thumbnailImageUrl = new Uri("https://cdn2.iconfinder.com/data/icons/essential-web-5/50/setting-adjust-control-panel-equalizer-256.png"),
+                actions = actions266 //設定回覆動作
+            };
+            var CarouselTemplate = new isRock.LineBot.CarouselTemplate();
+            CarouselTemplate.columns.Add(ButtonTemplate6F);
+            CarouselTemplate.columns.Add(ButtonTemplate4F);
+            CarouselTemplate.columns.Add(ButtonTemplate266);
+            //發送
+            bot.PushMessage(ButtonTemplateParameter.LineID, CarouselTemplate);
         }
     }
 }
