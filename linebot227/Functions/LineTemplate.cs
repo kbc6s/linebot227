@@ -85,10 +85,6 @@ namespace linebot227.Functions
             var bot = new Bot(channelAccessToken);
             //建立actions，作為ButtonTemplate的用戶回覆行為
             var actions = new List<isRock.LineBot.TemplateActionBase>();
-            //actions.Add(new isRock.LineBot.MessageAction()
-            //{ label = "首次登入", text = "首次登入" });
-            //actions.Add(new isRock.LineBot.MessageAction()
-            //{ label = "點選這邊等同用戶直接輸入某訊息", text = ButtonTemplateFunction.LineEvent });
             actions.Add(new isRock.LineBot.PostbackAction()
             { label = "空調控制postback", data = "123456789" });     //ButtonTemplateParameter.postback.ToString()
             actions.Add(new isRock.LineBot.MessageAction()
@@ -113,44 +109,61 @@ namespace linebot227.Functions
         // 遠端控制Carousel
         public static void CarouselTemplateTest(ButtonTemplateParameter ButtonTemplateParameter)
         {
+            RestAPI api = new RestAPI();
             var bot = new Bot(channelAccessToken);
             //建立actions，作為ButtonTemplate的用戶回覆行為
             //=======6F==========
             var actions6 = new List<isRock.LineBot.TemplateActionBase>();
             actions6.Add(new isRock.LineBot.MessageAction()
-            { label = "6F 大門", text = "開六樓的門" });
+            { label = "開啟6F大門", text = "開六樓的門" });
             actions6.Add(new isRock.LineBot.MessageAction()
-            { label = "6F 空調", text = "開啟6樓空調" });
+            { label = "開啟6F業務部空調(" + api.GetValue("020014") + "度)", text = "開啟6樓系統部空調" });
+            actions6.Add(new isRock.LineBot.MessageAction()
+            { label = "開啟6F工程部空調(" + api.GetValue("020013") + "度)", text = "開啟6樓工程部空調" });
             //=======4F==========
             var actions4 = new List<isRock.LineBot.TemplateActionBase>();
             actions4.Add(new isRock.LineBot.MessageAction()
-            { label = "4F 大門", text = "開四樓的門" });
+            { label = "開啟4F大門", text = "開四樓的門" });
             actions4.Add(new isRock.LineBot.MessageAction()
-            { label = "4F 空調", text = "開啟4樓空調" });
+            { label = "開啟4F空調", text = "開啟4樓空調" });
+            actions4.Add(new isRock.LineBot.MessageAction()
+            { label = "開啟6F工程部空調(" + api.GetValue("020013") + "度)", text = "開啟6樓工程部空調" });
             //=======266==========
             var actions266 = new List<isRock.LineBot.TemplateActionBase>();
             actions266.Add(new isRock.LineBot.MessageAction()
             { label = "266大門", text = "開266的門" });
             actions266.Add(new isRock.LineBot.MessageAction()
             { label = "266", text = "266沒空調喔@@" });
+            actions266.Add(new isRock.LineBot.MessageAction()
+            { label = "開啟6F工程部空調(" + api.GetValue("020013") + "度)", text = "開啟6樓工程部空調" });
 
+            //依照冷氣狀態改變圖案
+            string imgURL = "";
+            if (api.GetValue("DO1") == 1)
+            {
+                imgURL = "https://cdn4.iconfinder.com/data/icons/hotel-service-5/300/air_conditioner-512.png"; //冷氣運作圖
+            }
+            else
+            {
+                imgURL = "https://cdn2.iconfinder.com/data/icons/kitchen-appliances-computers-and-electronics/32/Appliances-19-128.png"; //冷氣圖
+            }
             //製作模板框架
             // =======6樓=======
             var ButtonTemplate6F = new isRock.LineBot.Column
             {
-                text = "6樓",
-                title = "6樓",
 
+                text = "6樓",
+                //title = "6樓",
                 //設定圖片
-                thumbnailImageUrl = new Uri("https://cdn3.iconfinder.com/data/icons/letters-and-numbers-1/32/number_6_blue-256.png"),
+                thumbnailImageUrl = new Uri(imgURL),
                 actions = actions6 //設定回覆動作
             };
             //======= 4樓 =======
              var ButtonTemplate4F = new isRock.LineBot.Column
             {
                  text = "4樓",
-                 title = "4樓",
-
+                 //title = "4樓",
+                 
                  //設定圖片
                  thumbnailImageUrl = new Uri("https://cdn3.iconfinder.com/data/icons/letters-and-numbers-1/32/number_4_green-256.png"),
                  actions = actions4 //設定回覆動作
@@ -159,7 +172,7 @@ namespace linebot227.Functions
             var ButtonTemplate266 = new isRock.LineBot.Column
             {
                 text = "266",
-                title = "266",
+                //title = "266",
 
                 //設定圖片
                 thumbnailImageUrl = new Uri("https://cdn2.iconfinder.com/data/icons/essential-web-5/50/setting-adjust-control-panel-equalizer-256.png"),

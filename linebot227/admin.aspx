@@ -25,6 +25,7 @@
         <asp:BoundField DataField="Valid" HeaderText="權限" />
         <asp:BoundField DataField="AuthTime" HeaderText="申請時間" />
         <asp:ButtonField ButtonType="Button" Text="給予權限"   CommandName="verify"  />
+<%--        <asp:CheckBoxField Text="勾選" --%>
 <%--        <asp:BoundField DataField="Role" HeaderText="權限" />--%>
     </Columns>
 </asp:GridView>

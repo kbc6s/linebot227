@@ -21,7 +21,7 @@
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Push Text Message" />
             <br />
             <br />--%>
-            <asp:Button ID="Button5" runat="server" OnClick="Button5_insertSQL" Text="Insert SQL" />
+            <asp:Button ID="Button5" runat="server" OnClick="TestButton" Text="Test Button" />
             <br />
             <br />
           <%--  <asp:Button ID="Button6" runat="server" OnClick="Button4_deleteSQL" Text="Delete SQL" />

@@ -90,7 +90,19 @@ namespace linebot227
         {
             sql.DeleteMemberInfo(9);
         }
-
+        protected void TestButton(object sender, EventArgs e)
+        {
+            var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("undefined", "{\"Tags\": [{\"Name\": \"" + "020013" + "\"}]}", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            var buff = response.Content;  //buff is string
+            dynamic result = JValue.Parse(buff); //result is object
+            var value = result.Values[0].Value; //so I can get value in result
+            int qwe = 123;
+        }
         protected void Button5_insertSQL(object sender, EventArgs e)
         {
             //var sql = new SQLcontroller("61.216.65.239", "mydb", "sa", "leegood");
@@ -104,41 +116,40 @@ namespace linebot227
             //});
             //Mail_Server.MailController.SendEmail();
 
-            // ============= test =============
-            RestAPI api = new RestAPI();
-            var points = new List<int>();
-            var pointName = new List<string>();
+            // ============= test Check door & window =============
+            //RestAPI api = new RestAPI();
+            //var points = new List<int>();
+            //var pointName = new List<string>();
 
-            pointName.Add("系統部窗戶");
-            pointName.Add("大門");
-            pointName.Add("測試點");
-            points.Add(api.GetValue("BA_020028"));     //系統部窗戶
-            points.Add(api.GetValue("020030"));          //大門 value是1代表門是開的  GetValue參數改成list 較恰當
-            points.Add(api.GetValue("DO1"));             //測試點
-            bool isIn = points.Contains(1);
-            string openStatus="";
-            int count = 0;
-            if (isIn)
-            {
-                foreach (var point in points)
-                {
-                    count++;
-                    if (point == 1)
-                    {
-                        openStatus += pointName[count-1];
-                        //openStatus += pointName[2];
-                    }
-                }
-            }
-            else
-            {
-                //門窗都關好了
-            }
-            //         ========= parse JSON ============
-            //var eee = response.Content;
-            //dynamic result = JValue.Parse(eee);
-            //var qwer = result.Values[0].Name;
-            int rrr = 123;
+            //pointName.Add("系統部窗戶");
+            //pointName.Add("大門");
+            //pointName.Add("測試點");
+            //points.Add(api.GetValue("BA_020028"));     //系統部窗戶
+            //points.Add(api.GetValue("020030"));          //大門 value是1代表門是開的  GetValue參數改成list 較恰當
+            //points.Add(api.GetValue("DO1"));             //測試點
+            //bool isIn = points.Contains(1);
+            //string openStatus="";
+            //int count = 0;
+            //if (isIn)
+            //{
+            //    foreach (var point in points)
+            //    {
+            //        count++;
+            //        if (point == 1)
+            //        {
+            //            openStatus += pointName[count-1];
+            //            //openStatus += pointName[2];
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    //門窗都關好了
+            //}
+            ////         ========= parse JSON ============
+            ////var eee = response.Content;
+            ////dynamic result = JValue.Parse(eee);
+            ////var qwer = result.Values[0].Name;
         }
 
         protected void Button4_sendMail(object sender, EventArgs e)

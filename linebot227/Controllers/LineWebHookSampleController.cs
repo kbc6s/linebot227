@@ -80,7 +80,7 @@ namespace linebot227.Controllers
                             LineTemplate.CarouselTemplateTest(status);
 
                         }
-                        if (LineEvent.message.text == "開啟6樓空調" && check.VeriMember(LineEvent.source.userId))
+                        if (LineEvent.message.text == "開啟6樓系統部空調" && check.VeriMember(LineEvent.source.userId))
                         {
                             if (api.GetValue("020004")==1)
                             {
@@ -97,7 +97,24 @@ namespace linebot227.Controllers
                                 }
                             }
                         }
-                        if(LineEvent.message.text == "檢查門窗" && check.VeriMember(LineEvent.source.userId))
+                        if (LineEvent.message.text == "開啟6樓工程部空調" && check.VeriMember(LineEvent.source.userId))
+                        {
+                            if (api.GetValue("020001") == 1)
+                            {
+                                this.ReplyMessage(LineEvent.replyToken, "工程部冷氣是開著的喔.....");
+                            }
+                            else
+                            {
+                                api.SetValue("020031", 1);
+                                Thread.Sleep(800); //Delay 1秒
+                                api.SetValue("020031", 0); //020032
+                                if (api.GetValue("020001") == 1)
+                                {
+                                    this.ReplyMessage(LineEvent.replyToken, "成功開啟空調");
+                                }
+                            }
+                        }
+                        if (LineEvent.message.text == "檢查門窗" && check.VeriMember(LineEvent.source.userId))
                         {
                             //RestAPI api = new RestAPI();
                             
