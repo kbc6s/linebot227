@@ -117,57 +117,60 @@ namespace linebot227
               "BA_020029",       //小房間
               "DO1"            //測試點
              };
+            //points.Add("123");
+            //points.Add("232323");
+            List<string> aaa = points;
+            api.GetListValue(points,Name);
+            //var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
+            //var request = new RestRequest(Method.POST);
+            //request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
+            //request.AddHeader("Content-Type", "application/json");
+            //int length = points.Count;
+            //string body = "{\"Tags\": [";
+            //int count = 0;
+            //foreach (string x in points)
+            //{
+            //    count++;
+            //    if (count != length)
+            //    {
+            //        body += "{ \"Name\": \"" + x + "\"},";
+            //    }
+            //    else
+            //    {
+            //        body += "{ \"Name\": \"" + x + "\"}";
+            //    }
+            //}
+            //body += "]}";
+            //request.AddParameter("undefined", body, ParameterType.RequestBody);
 
-            var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
-            request.AddHeader("Content-Type", "application/json");
-            int length = points.Count;
-            string body = "{\"Tags\": [";
-            int count = 0;
-            foreach (string x in points)
-            {
-                count++;
-                if (count != length)
-                {
-                    body += "{ \"Name\": \"" + x + "\"},";
-                }
-                else
-                {
-                    body += "{ \"Name\": \"" + x + "\"}";
-                }
-            }
-            body += "]}";
-            request.AddParameter("undefined", body, ParameterType.RequestBody);
-
-            IRestResponse response = client.Execute(request);
-            // ================== parsing JSON ====================
-            var buff = response.Content;  //buff is string
-            dynamic result = JValue.Parse(buff); //result is object\
-            //var value = result.Values[8].Value; //so I can get value in result
-            int nnn = 1;
-            bool isIn = result.Contains(1);
-            string openStatus = "";
-            count = 0;
-            if (isIn)
-            {
-                foreach (var point in result)
-                {
-                    count++;
-                    if (point == 1)
-                    {
-                        openStatus += Name[count - 1];
-                    }
-                }
-                //this.ReplyMessage(LineEvent.replyToken, openStatus + "沒關");
-                string aaa = openStatus + "沒關";
-            }
-            else
-            {
-                //this.ReplyMessage(LineEvent.replyToken, "門窗都關好了");
-                string aaa = "門窗都關好了";
-            }
-            int ff = 11;
+            //IRestResponse response = client.Execute(request);
+            //// ================== parsing JSON ====================
+            //var buff = response.Content;  //buff is string
+            //dynamic result = JValue.Parse(buff); //result is object\
+            ////var value = result.Values[8].Value; //so I can get value in result
+            //int nnn = 1;
+            //bool isIn = result.Contains(1);
+            //string openStatus = "";
+            //count = 0;
+            //if (isIn)
+            //{
+            //    foreach (var point in result)
+            //    {
+            //        count++;
+            //        if (point == 1)
+            //        {
+            //            openStatus += Name[count - 1];
+            //        }
+            //    }
+            //    //this.ReplyMessage(LineEvent.replyToken, openStatus + "沒關");
+            //    string aaa = openStatus + "沒關";
+            //}
+            //else
+            //{
+            //    //this.ReplyMessage(LineEvent.replyToken, "門窗都關好了");
+            //    string aaa = "門窗都關好了";
+            //}
+            //int ff = 11;
         }
         protected void Button5_insertSQL(object sender, EventArgs e)
         {

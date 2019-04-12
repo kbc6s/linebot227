@@ -11,7 +11,7 @@ namespace linebot227.Functions
 {
     public class RestAPI
     {
-        public string GetListValue(List<string>Name) //string Name
+        public string GetListValue(List<string>Name,List<string>placeName) //string Name
         {
             
             var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
@@ -21,6 +21,7 @@ namespace linebot227.Functions
             int length = Name.Count;
             string body = "{\"Tags\": [";
             int count = 0;
+            //排版request body
             foreach (string x in Name)
             {
                 count++;
@@ -40,23 +41,37 @@ namespace linebot227.Functions
             // ================== parsing JSON ====================
             var buff = response.Content;  //buff is string
             dynamic result = JValue.Parse(buff); //result is object\
+            var list = new List<int> {  };
+            string ff="";
+            //string[] list= { };
+            //string eee = result.Values.Value;
+            foreach (var value in result.Values)
+            {
+                ff += value.Value;
+                //list.Add(value);
+                //list+=(value.Value);
+                //list += (value.Value);
+            }
             //var value = result.Values[8].Value; //so I can get value in result
-            int nnn = 1;
-            bool isIn = result.Values[0].Value.Contains(1);
+
+            //bool isIn = result.Values[0].Value.Contains(1);
+            bool isIn = ff.Contains("1");
             string openStatus = "";
             count = 0;
             if (isIn)
             {
-                foreach (var point in result)
+                foreach (char point in ff)
                 {
                     count++;
-                    if (point == 1)
+                    if (point == '1')
                     {
-                        openStatus += Name[count - 1];
+                        openStatus += placeName[count - 1];
+                        //openStatus += Name[0];
                     }
                 }
                 //this.ReplyMessage(LineEvent.replyToken, openStatus + "沒關");
                 string aaa = openStatus + "沒關";
+                int ll = 1;
                 return aaa;
             }
             else
@@ -65,7 +80,7 @@ namespace linebot227.Functions
                 string aaa = "門窗都關好了";
                 return aaa;
             }
-            int ff = 11;
+            int dd = 11;
         }
         public int GetValue(string Name) //string Name
         {
