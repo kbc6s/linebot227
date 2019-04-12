@@ -18,7 +18,7 @@ namespace linebot227
     {
         isRock.LineBot.Bot bot = null;
         const string channelAccessToken = "fTBvt+oi30MpuWqTvT/KJDBuKDJ8iKxPhJLX5fHwT+bha1vEfZPfprFFQ7LrdgdyrDnx/yDe1C+hTbLtYxojWGRyAbRVz2iuok8WbUiZBeOn3gxlUjs5gpsGQmmySmmF9m/Uat9ZwLWxomFA3FZ6jgdB04t89/1O/w1cDnyilFU=";
-        const string AdminUserId= "U8168367ec76c449dbdd98410d9333b8b";
+        const string AdminUserId = "U8168367ec76c449dbdd98410d9333b8b";
         //string channelAccessToken = "";
         //string AdminUserId = "";
         // public object Label2;
@@ -27,7 +27,7 @@ namespace linebot227
         public SQLcontroller sql = new SQLcontroller("61.216.65.239", "mydb", "sa", "leegood");
 
         protected void Page_Load(object sender, EventArgs e)
-        { 
+        {
             Label2 = Request.QueryString["name"];
             //bot = new isRock.LineBot.Bot(this.);
         }
@@ -92,16 +92,82 @@ namespace linebot227
         }
         protected void TestButton(object sender, EventArgs e)
         {
+            var api = new RestAPI();
+            var Name = new List<string>
+            {
+             "6樓大門,",
+             "志中旁窗戶,",
+             "柏欽旁窗戶,",
+             "禹任旁窗戶,",
+             "蕭董辦公室沙發旁,",
+             "蕭座位旁窗戶,",
+             "系統部窗戶,",
+             "小房間",
+             "測試點"
+             };
+            var points = new List<string>
+             {
+              "020030",          //大門        value是1代表門是開的
+              "BA_020023",       //志中旁窗戶
+              "BA_020024",       //柏欽旁窗戶
+              "BA_020025",       //禹任旁窗戶
+              "BA_020026",       //蕭董辦公室沙發旁
+              "BA_020027",       //蕭座位旁窗戶
+              "BA_020028",       //系統部窗戶
+              "BA_020029",       //小房間
+              "DO1"            //測試點
+             };
+
             var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
             request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("undefined", "{\"Tags\": [{\"Name\": \"" + "020013" + "\"}]}", ParameterType.RequestBody);
+            int length = points.Count;
+            string body = "{\"Tags\": [";
+            int count = 0;
+            foreach (string x in points)
+            {
+                count++;
+                if (count != length)
+                {
+                    body += "{ \"Name\": \"" + x + "\"},";
+                }
+                else
+                {
+                    body += "{ \"Name\": \"" + x + "\"}";
+                }
+            }
+            body += "]}";
+            request.AddParameter("undefined", body, ParameterType.RequestBody);
+
             IRestResponse response = client.Execute(request);
+            // ================== parsing JSON ====================
             var buff = response.Content;  //buff is string
-            dynamic result = JValue.Parse(buff); //result is object
-            var value = result.Values[0].Value; //so I can get value in result
-            int qwe = 123;
+            dynamic result = JValue.Parse(buff); //result is object\
+            //var value = result.Values[8].Value; //so I can get value in result
+            int nnn = 1;
+            bool isIn = result.Contains(1);
+            string openStatus = "";
+            count = 0;
+            if (isIn)
+            {
+                foreach (var point in result)
+                {
+                    count++;
+                    if (point == 1)
+                    {
+                        openStatus += Name[count - 1];
+                    }
+                }
+                //this.ReplyMessage(LineEvent.replyToken, openStatus + "沒關");
+                string aaa = openStatus + "沒關";
+            }
+            else
+            {
+                //this.ReplyMessage(LineEvent.replyToken, "門窗都關好了");
+                string aaa = "門窗都關好了";
+            }
+            int ff = 11;
         }
         protected void Button5_insertSQL(object sender, EventArgs e)
         {
@@ -169,7 +235,7 @@ namespace linebot227
             actions.Add(new isRock.LineBot.PostbackAction
             { label = "點這邊發生postack", data = "abc=aaa&def=111" });
 
-            
+
             //單一Button Template Message
             var ButtonTemplate = new isRock.LineBot.ButtonsTemplate()
             {

@@ -11,6 +11,62 @@ namespace linebot227.Functions
 {
     public class RestAPI
     {
+        public string GetListValue(List<string>Name) //string Name
+        {
+            
+            var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
+            request.AddHeader("Content-Type", "application/json");
+            int length = Name.Count;
+            string body = "{\"Tags\": [";
+            int count = 0;
+            foreach (string x in Name)
+            {
+                count++;
+                if (count != length)
+                {
+                    body += "{ \"Name\": \"" + x + "\"},";
+                }
+                else
+                {
+                    body += "{ \"Name\": \"" + x + "\"}";
+                }
+            }
+            body += "]}";
+            request.AddParameter("undefined", body, ParameterType.RequestBody);
+
+            IRestResponse response = client.Execute(request);
+            // ================== parsing JSON ====================
+            var buff = response.Content;  //buff is string
+            dynamic result = JValue.Parse(buff); //result is object\
+            //var value = result.Values[8].Value; //so I can get value in result
+            int nnn = 1;
+            bool isIn = result.Values[0].Value.Contains(1);
+            string openStatus = "";
+            count = 0;
+            if (isIn)
+            {
+                foreach (var point in result)
+                {
+                    count++;
+                    if (point == 1)
+                    {
+                        openStatus += Name[count - 1];
+                    }
+                }
+                //this.ReplyMessage(LineEvent.replyToken, openStatus + "沒關");
+                string aaa = openStatus + "沒關";
+                return aaa;
+            }
+            else
+            {
+                //this.ReplyMessage(LineEvent.replyToken, "門窗都關好了");
+                string aaa = "門窗都關好了";
+                return aaa;
+            }
+            int ff = 11;
+        }
         public int GetValue(string Name) //string Name
         {
             var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
