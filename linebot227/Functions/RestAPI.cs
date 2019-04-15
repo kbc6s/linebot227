@@ -13,7 +13,6 @@ namespace linebot227.Functions
     {
         public string GetListValue(List<string>Name,List<string>placeName) //string Name
         {
-            
             var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
@@ -48,9 +47,6 @@ namespace linebot227.Functions
             foreach (var value in result.Values)
             {
                 ff += value.Value;
-                //list.Add(value);
-                //list+=(value.Value);
-                //list += (value.Value);
             }
             //var value = result.Values[8].Value; //so I can get value in result
 
@@ -69,14 +65,12 @@ namespace linebot227.Functions
                         //openStatus += Name[0];
                     }
                 }
-                //this.ReplyMessage(LineEvent.replyToken, openStatus + "沒關");
                 string aaa = openStatus + "沒關";
                 int ll = 1;
                 return aaa;
             }
             else
             {
-                //this.ReplyMessage(LineEvent.replyToken, "門窗都關好了");
                 string aaa = "門窗都關好了";
                 return aaa;
             }

@@ -130,37 +130,38 @@ namespace linebot227.Controllers
                                 "小房間",
                                 "測試點"
                             };
-                            var points = new List<int>
+                            var points = new List<string>
                             {
-                                api.GetValue("020030"),          //大門        value是1代表門是開的
-                                api.GetValue("BA_020023"),       //志中旁窗戶
-                                api.GetValue("BA_020024"),       //柏欽旁窗戶
-                                api.GetValue("BA_020025"),       //禹任旁窗戶
-                                api.GetValue("BA_020026"),       //蕭董辦公室沙發旁
-                                api.GetValue("BA_020027"),       //蕭座位旁窗戶
-                                api.GetValue("BA_020028"),       //系統部窗戶
-                                api.GetValue("BA_020029"),       //小房間
-                                api.GetValue("DO1")             //測試點
+                                "020030",          //大門        value是1代表門是開的
+                                "BA_020023",       //志中旁窗戶
+                                "BA_020024",       //柏欽旁窗戶
+                                "BA_020025",       //禹任旁窗戶
+                                "BA_020026",       //蕭董辦公室沙發旁
+                                "BA_020027",       //蕭座位旁窗戶
+                                "BA_020028",       //系統部窗戶
+                                "BA_020029",       //小房間
+                                "DO1"             //測試點
                             };
-                            bool isIn = points.Contains(1);
-                            string openStatus = "";
-                            int count = 0;
-                            if (isIn)
-                            {
-                                foreach (var point in points)
-                                {
-                                    count++;
-                                    if (point == 1)
-                                    {
-                                        openStatus += pointName[count - 1];
-                                    }
-                                }
-                                this.ReplyMessage(LineEvent.replyToken, openStatus+"沒關");
-                            }
-                            else
-                            {
-                                this.ReplyMessage(LineEvent.replyToken, "門窗都關好了");
-                            }
+                            this.ReplyMessage(LineEvent.replyToken,api.GetListValue(points, pointName));
+                            //bool isIn = points.Contains(1);
+                            //string openStatus = "";
+                            //int count = 0;
+                            //if (isIn)
+                            //{
+                            //    foreach (var point in points)
+                            //    {
+                            //        count++;
+                            //        if (point == 1)
+                            //        {
+                            //            openStatus += pointName[count - 1];
+                            //        }
+                            //    }
+                            //    this.ReplyMessage(LineEvent.replyToken, openStatus+"沒關");
+                            //}
+                            //else
+                            //{
+                            //    this.ReplyMessage(LineEvent.replyToken, "門窗都關好了");
+                            //}
                         }
                     }
                     

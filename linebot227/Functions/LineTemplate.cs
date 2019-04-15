@@ -60,15 +60,15 @@ namespace linebot227.Functions
             { label = "6F 監看", uri = new Uri(ButtonTemplateParameter.ViewURL1) });
             actions.Add(new isRock.LineBot.UriAction()
             { label = "4F 監看", uri = new Uri(ButtonTemplateParameter.ViewURL2) });
-            actions.Add(new isRock.LineBot.PostbackAction()
-            { label = "空調控制postback", data = "123456789" });
+            //actions.Add(new isRock.LineBot.PostbackAction()
+            //{ label = "空調控制postback", data = "123456789" });
 
 
             //單一Button Template Message
             var ButtonTemplate = new isRock.LineBot.ButtonsTemplate()
             {
                 altText = "監看狀態",
-                text = "Text",
+                text = "樓宇監看",
                 //title = "Title",
 
                 //設定圖片
