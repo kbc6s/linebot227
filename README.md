@@ -1,4 +1,5 @@
 # linebot227
-Nuget studyExample write by David dong
-Nuget Dapper
-Nuget RestSharp
+Nuget install studyExample write by David dong
+Nuget install Dapper
+Nuget install RestSharp
+Nuget install isRock.Framework.Web.AllPackages
