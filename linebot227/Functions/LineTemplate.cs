@@ -52,10 +52,6 @@ namespace linebot227.Functions
             var bot = new Bot(channelAccessToken);
             //建立actions，作為ButtonTemplate的用戶回覆行為
             var actions = new List<isRock.LineBot.TemplateActionBase>();
-            //actions.Add(new isRock.LineBot.MessageAction()
-            //{ label = "首次登入", text = "首次登入" });
-            //actions.Add(new isRock.LineBot.MessageAction()
-            //{ label = "點選這邊等同用戶直接輸入某訊息", text = ButtonTemplateFunction.LineEvent });
             actions.Add(new isRock.LineBot.UriAction()
             { label = "6F 監看", uri = new Uri(ButtonTemplateParameter.ViewURL1) });
             actions.Add(new isRock.LineBot.UriAction()
@@ -117,17 +113,18 @@ namespace linebot227.Functions
             actions6.Add(new isRock.LineBot.MessageAction()
             { label = "開啟6F大門", text = "開六樓的門" });
             actions6.Add(new isRock.LineBot.MessageAction()
-            { label = "開啟6F業務部空調(" + api.GetValue("020014") + "度)", text = "開啟6樓系統部空調" });
+            { label = "6F工程部空調(" + api.GetValue("020013") + "度)", text = "開啟6樓工程部空調" });
             actions6.Add(new isRock.LineBot.MessageAction()
-            { label = "開啟6F工程部空調(" + api.GetValue("020013") + "度)", text = "開啟6樓工程部空調" });
+            { label = "6F業務部空調(" + api.GetValue("020014") + "度)", text = "開啟6樓系統部空調" });
+            
             //=======4F==========
             var actions4 = new List<isRock.LineBot.TemplateActionBase>();
             actions4.Add(new isRock.LineBot.MessageAction()
-            { label = "開啟4F大門", text = "開四樓的門" });
+            { label = "4F大門", text = "開四樓的門" });
             actions4.Add(new isRock.LineBot.MessageAction()
-            { label = "開啟4F空調", text = "開啟4樓空調" });
+            { label = "4樓會議室空調(" + api.GetValue("010013") + "度)", text = "開啟4樓會議室空調" });
             actions4.Add(new isRock.LineBot.MessageAction()
-            { label = "開啟6F工程部空調(" + api.GetValue("020013") + "度)", text = "開啟6樓工程部空調" });
+            { label = "4樓組盤間空調(" + api.GetValue("010014") + "度)", text = "開啟4樓組盤間空調" });
             //=======266==========
             var actions266 = new List<isRock.LineBot.TemplateActionBase>();
             actions266.Add(new isRock.LineBot.MessageAction()
@@ -135,7 +132,7 @@ namespace linebot227.Functions
             actions266.Add(new isRock.LineBot.MessageAction()
             { label = "266", text = "266沒空調喔@@" });
             actions266.Add(new isRock.LineBot.MessageAction()
-            { label = "開啟6F工程部空調(" + api.GetValue("020013") + "度)", text = "開啟6樓工程部空調" });
+            { label = "6F工程部空調(" + api.GetValue("020013") + "度)", text = "開啟6樓工程部空調" });
 
             //依照冷氣狀態改變圖案
             string imgURL = "";

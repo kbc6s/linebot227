@@ -11,8 +11,33 @@ namespace linebot227.Functions
 {
     public class RestAPI
     {
+        //檢查門窗function
         public string GetListValue(List<string>Name,List<string>placeName) //string Name
         {
+            //var pointName = new List<string>
+            //                {
+            //                    "6樓大門,",
+            //                    "志中旁窗戶,",
+            //                    "柏欽旁窗戶,",
+            //                    "禹任旁窗戶,",
+            //                    "蕭董辦公室沙發旁,",
+            //                    "蕭座位旁窗戶,",
+            //                    "系統部窗戶,",
+            //                    "小房間",
+            //                    "測試點"
+            //                };
+            //var points = new List<string>
+            //                {
+            //                    "020030",          //大門        value是1代表門是開的
+            //                    "BA_020023",       //志中旁窗戶
+            //                    "BA_020024",       //柏欽旁窗戶
+            //                    "BA_020025",       //禹任旁窗戶
+            //                    "BA_020026",       //蕭董辦公室沙發旁
+            //                    "BA_020027",       //蕭座位旁窗戶
+            //                    "BA_020028",       //系統部窗戶
+            //                    "BA_020029",       //小房間
+            //                    "DO1"             //測試點
+            //                };
             var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
@@ -66,7 +91,7 @@ namespace linebot227.Functions
                     }
                 }
                 string aaa = openStatus + "沒關";
-                int ll = 1;
+                //int ll = 1;
                 return aaa;
             }
             else
@@ -76,6 +101,7 @@ namespace linebot227.Functions
             }
             int dd = 11;
         }
+        //取得DDC 點位資訊
         public int GetValue(string Name) //string Name
         {
             var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
@@ -90,6 +116,7 @@ namespace linebot227.Functions
             var value = result.Values[0].Value; //so I can get value in result
             return value;
         }
+        //設定DDC 點位
         public string SetValue(string Name, int Value)  //string Name,int Value
         {
             var client = new RestClient("http://192.168.3.69/WaWebService/Json/SetTagValue/Leegood");
@@ -101,19 +128,6 @@ namespace linebot227.Functions
             IRestResponse response = client.Execute(request);
             string buff = response.StatusCode.ToString();  //buff is string
             return buff;
-        }
-        public string GetAirConditonTemp(string PointName)
-        {
-            var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
-            request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("undefined", "{\"Tags\": [{\"Name\": \"" + PointName + "\"}]}", ParameterType.RequestBody);
-            IRestResponse response = client.Execute(request);
-            var buff = response.Content;  //buff is string
-            dynamic result = JValue.Parse(buff); //result is object
-            var value = result.Values[0].Value; //so I can get value in result
-            return value;
         }
     }
 }

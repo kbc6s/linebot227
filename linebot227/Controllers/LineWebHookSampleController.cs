@@ -22,7 +22,12 @@ namespace linebot227.Controllers
         [HttpPost]
         public IHttpActionResult POST()
         {
+            //設定允許控制的星期
+            var week = new List<string> {
+                "週一","週二","週三","週四","週五","週六"
+            };
             var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
+            ScheduleControll time = new ScheduleControll();
             RestAPI api = new RestAPI();
             try
             {
@@ -67,12 +72,6 @@ namespace linebot227.Controllers
                         }
                         if (LineEvent.message.text == "遠端控制" && check.VeriMember(LineEvent.source.userId))
                         {
-                            //ButtonTemplateParameter status = new ButtonTemplateParameter
-                            //{
-                            //    LineID = LineEvent.source.userId
-                            //    //status.Title = "冷氣狀態: "+ api.GetValue("020004");     //將冷氣狀態放入Title
-                            //};
-                            //LineTemplate.RemoteController(status);
                             ButtonTemplateParameter status = new ButtonTemplateParameter
                             {
                                 LineID = LineEvent.source.userId
@@ -82,35 +81,86 @@ namespace linebot227.Controllers
                         }
                         if (LineEvent.message.text == "開啟6樓系統部空調" && check.VeriMember(LineEvent.source.userId))
                         {
-                            if (api.GetValue("020004")==1)
+
+                            var isOpenTime = time.Schedule(week, 9, 24, LineEvent.source.userId);
+                            if (isOpenTime)
                             {
-                                this.ReplyMessage(LineEvent.replyToken, "系統部冷氣是開著的喔.....");
-                            }
-                            else
-                            {
-                                api.SetValue("020032", 1);
-                                Thread.Sleep(800); //Delay 1秒
-                                api.SetValue("020032", 0); //020032
                                 if (api.GetValue("020004") == 1)
                                 {
-                                    this.ReplyMessage(LineEvent.replyToken, "成功開啟空調");
+                                    this.ReplyMessage(LineEvent.replyToken, "系統部冷氣是開著的喔.....");
+                                }
+                                else
+                                {
+                                    api.SetValue("020032", 1);
+                                    Thread.Sleep(800); //Delay 1秒
+                                    api.SetValue("020032", 0); //020032
+                                    if (api.GetValue("020004") == 1)
+                                    {
+                                        this.ReplyMessage(LineEvent.replyToken, "成功開啟空調");
+                                    }
                                 }
                             }
                         }
                         if (LineEvent.message.text == "開啟6樓工程部空調" && check.VeriMember(LineEvent.source.userId))
                         {
-                            if (api.GetValue("020001") == 1)
+                            var isOpenTime = time.Schedule(week, 9, 24, LineEvent.source.userId);
+                            if (isOpenTime)
                             {
-                                this.ReplyMessage(LineEvent.replyToken, "工程部冷氣是開著的喔.....");
-                            }
-                            else
-                            {
-                                api.SetValue("020031", 1);
-                                Thread.Sleep(800); //Delay 1秒
-                                api.SetValue("020031", 0); //020032
                                 if (api.GetValue("020001") == 1)
                                 {
-                                    this.ReplyMessage(LineEvent.replyToken, "成功開啟空調");
+                                    this.ReplyMessage(LineEvent.replyToken, "工程部冷氣是開著的喔.....");
+                                }
+                                else
+                                {
+                                    api.SetValue("020031", 1);
+                                    Thread.Sleep(800); //Delay 1秒
+                                    api.SetValue("020031", 0); //020032
+                                    if (api.GetValue("020001") == 1)
+                                    {
+                                        this.ReplyMessage(LineEvent.replyToken, "成功開啟空調");
+                                    }
+                                }
+                            }
+                        }
+                        if (LineEvent.message.text == "開啟4樓會議室空調" && check.VeriMember(LineEvent.source.userId))
+                        {
+                            var isOpenTime = time.Schedule(week, 9, 24, LineEvent.source.userId);
+                            if (isOpenTime)
+                            {
+                                if (api.GetValue("010001") == 1)
+                                {
+                                    this.ReplyMessage(LineEvent.replyToken, "4F會議室冷氣是開著的喔.....");
+                                }
+                                else
+                                {
+                                    api.SetValue("010031", 1);
+                                    Thread.Sleep(800); 
+                                    api.SetValue("010031", 0);
+                                    if (api.GetValue("010001") == 1)
+                                    {
+                                        this.ReplyMessage(LineEvent.replyToken, "成功開啟空調");
+                                    }
+                                }
+                            }
+                        }
+                        if (LineEvent.message.text == "開啟4樓組盤間空調" && check.VeriMember(LineEvent.source.userId))
+                        {
+                            var isOpenTime = time.Schedule(week, 9, 24, LineEvent.source.userId);
+                            if (isOpenTime)
+                            {
+                                if (api.GetValue("010004") == 1)
+                                {
+                                    this.ReplyMessage(LineEvent.replyToken, "4樓組盤間冷氣是開著的喔.....");
+                                }
+                                else
+                                {
+                                    api.SetValue("010032", 1);
+                                    Thread.Sleep(800); //Delay 1秒
+                                    api.SetValue("010032", 0); //020032
+                                    if (api.GetValue("010004") == 1)
+                                    {
+                                        this.ReplyMessage(LineEvent.replyToken, "成功開啟空調");
+                                    }
                                 }
                             }
                         }
@@ -120,6 +170,7 @@ namespace linebot227.Controllers
                             
                             var pointName = new List<string>
                             {
+                                //6樓
                                 "6樓大門,",
                                 "志中旁窗戶,",
                                 "柏欽旁窗戶,",
@@ -128,10 +179,20 @@ namespace linebot227.Controllers
                                 "蕭座位旁窗戶,",
                                 "系統部窗戶,",
                                 "小房間",
-                                "測試點"
+                                "測試點,",
+                                //4樓
+                                "4F大門,",
+                                "組盤間,",
+                                "測試間窗-1,",
+                                "羅小姐辦公室窗-1,",
+                                "羅小姐辦公室窗-2,",
+                                "小會議室窗,",
+                                "鄭總辦公室窗,",
+                                "測試間窗-2"
                             };
                             var points = new List<string>
                             {
+                                //6樓
                                 "020030",          //大門        value是1代表門是開的
                                 "BA_020023",       //志中旁窗戶
                                 "BA_020024",       //柏欽旁窗戶
@@ -140,7 +201,16 @@ namespace linebot227.Controllers
                                 "BA_020027",       //蕭座位旁窗戶
                                 "BA_020028",       //系統部窗戶
                                 "BA_020029",       //小房間
-                                "DO1"             //測試點
+                                "DO1",             //測試點
+                                //4樓
+                                "010127",
+                                "BA_010121",
+                                "BA_010122",
+                                "BA_010123",
+                                "BA_010124",
+                                "BA_010125",
+                                "BA_010126",
+                                "BA_010128"
                             };
                             this.ReplyMessage(LineEvent.replyToken,api.GetListValue(points, pointName));
                             //bool isIn = points.Contains(1);
@@ -165,22 +235,7 @@ namespace linebot227.Controllers
                         }
                     }
                     
-                    /*
-                    //Post : 傳送表單
-                    HttpClient client = new HttpClient();
-                    var uri = $"http://192.168.3.69/WaWebService/Json/SetTagValue/Leegood";
-
-                    Class1 myclass = new Class1();
-                    myclass.MyProperty = 123;
-                    //content = 表單
-                    var content = new StringContent(
-                        JsonConvert.SerializeObject(myclass),
-                        Encoding.UTF8,
-                        "application/json");
-                    
-                    HttpResponseMessage response = client.PostAsync(uri, content).Result;
-                    //response.StatusCode 
-                    */
+                   
                     if (LineEvent.message.type == "sticker") //收到貼圖
                         this.ReplyMessage(LineEvent.replyToken, 1, 2);
                 }

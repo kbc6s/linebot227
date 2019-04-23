@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>AspNetWithVueBinding </title>
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/vue.min.js"></script>
+    <script src="Scripts/isRockFx.js"></script>
+    <script src="Scripts/toastr.min.js"></script>
+    <link href="Content/toastr.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script>
+        var vd_StudentInfo; //儲存資料
+        var vm_StudentInfo; //Vue instance
+
+        //設定資料繫結
+        function SetBinding() {
+            //create vue instance
+            vm_StudentInfo = new Vue(
+                {
+                    el: '#tableBody',
+                    data: { items: vd_StudentInfo },
+                    methods: {
+                        remove: function (item) {
+                            if (confirm('確定要刪除[' + item.StudentName + ']?')) {
+                                Remove(item);
+                            }
+                        },
+                        edit: function (item) {
+                            window.location.href = 'AddNewOrUpdate.html?guid=' + item.guid;
+                        }
+                    }
+                });
+        }
+
+        //移除一筆資料
+        function Remove(item) {
+            var para = item.guid;
+            ExecuteAPI('Example', 'Remove', para,
+                //success
+                function (result) {
+                    if (result.isSuccess) {
+                        //重新取得資料
+                        GetData();
+                    }
+                }
+            );
+        }
+
+        //從伺服器端取得資料
+        function GetData() {
+            ExecuteAPI('Example', 'GetData', null,
+                //success
+                function (result) {
+                    vm_StudentInfo.items = result.Data;
+                }
+            );
+        }
+
+        //透過binding清空UI上的資料
+        function Clear() {
+            vm_StudentInfo.items = undefined;
+        }
+
+        //ready
+        $(function () {
+            SetBinding();
+
+            $('#ButtonGetData').click(GetData);
+            $('#ButtonClear').click(Clear);
+            $('#ButtonAddNew').click(function () { window.location.href = 'AddNewOrUpdate.html'; });
+
+            toastr["info"]("請按下取得遠端資料鈕，來取得資料喔...", "貼心提醒")
+        });
+    </script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-9" style="margin: 10px">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    範例 : AspNetWithVueBinding (資料顯示、刪除)
+                </div>
+                <div class="panel-body">
+                    <button type="button" id="ButtonGetData" class="btn btn-primary">取得遠端資料</button>
+                    <button type="button" id="ButtonClear" class="btn btn-primary">清空UI(測試用)</button>
+                </div>
+                <br />
+                <!-- 表格開始 -->
+                <div style="margin: 10px" id="tableBody">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Actions</th>
+                                <th>姓名</th>
+                                <th>身高</th>
+                                <th>體重</th>
+                                <th>BMI</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in items">
+                                <td>
+                                    <button class="btn  btn-outline btn-primary btn-xs" v-on:click="edit(item)">編輯</button>
+                                    <button class="btn  btn-outline btn-primary btn-xs" v-on:click="remove(item)">刪除</button>
+                                </td>
+                                <td>
+                                    <span>{{item.StudentName}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.Height}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.Weight}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.BMIValue}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.Memo}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <button type="button" id="ButtonAddNew" class="btn btn-primary">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -16,18 +16,14 @@ namespace linebot227.Functions
             try
             {
                 var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
-                var result = sql.CheckMember(userId);
-                var result1 = sql.CheckMember(userId, "'ok'");
+                var result = sql.CheckMember(userId);           //辦過會員管理員還沒驗證
+                var result1 = sql.CheckMember(userId, "'ok'");  //已經是會員
                 const string channelAccessToken = "fTBvt+oi30MpuWqTvT/KJDBuKDJ8iKxPhJLX5fHwT+bha1vEfZPfprFFQ7LrdgdyrDnx/yDe1C+hTbLtYxojWGRyAbRVz2iuok8WbUiZBeOn3gxlUjs5gpsGQmmySmmF9m/Uat9ZwLWxomFA3FZ6jgdB04t89/1O/w1cDnyilFU=";
                 var bot = new Bot(channelAccessToken);
-
-                if (result1.Count != 0)
+                string weekday=DateTime.Now.ToString("ddd");
+                string hour = DateTime.Now.ToString("HH");
+                if (result1.Count != 0 /*&& DateTime.Now.ToString("ddd dd MMM, yyyy") ==*/)
                 {
-                    //ButtonTemplateParameter status = new ButtonTemplateParameter();
-                    //status.LineID = userId;
-                    //status.ViewURL1 = "http://api.leegood.com.tw:58088/LGoffice_/home.htm";
-                    //status.ViewURL2 = "http://api.leegood.com.tw:58088/LGoffice_/4f_sa.htm";
-                    //LineTemplate.BuildingStatusTemplete(status);
                     return true;
                 }
                 else if (result.Count != 0)
@@ -35,9 +31,9 @@ namespace linebot227.Functions
                     bot.PushMessage(userId, "尚未進行驗證");
                     return false;
                 }
-                else
+                else 
                 {
-                    bot.PushMessage(userId, "請至個人設定登入取得權限");
+                    bot.PushMessage(userId, "請至個人設定/n點擊首次登入取得權限");
                     return false;
                 }
             }

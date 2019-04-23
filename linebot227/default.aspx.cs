@@ -41,23 +41,7 @@ namespace linebot227
             Response.Redirect(s_url);     //queryString 使用完後重新導向新的網站
         }
         //test WebForm
-        //protected void ChannelAccessToken(object sender, EventArgs e)
-        //{
-
-        //}
-        //protected void UserIDTxb(object sender, EventArgs e)s
-        //{
-
-        //}
-        //protected void MessageTxb(object sender, EventArgs e)
-        //{
-
-        //}
-        //protected void SendMessageBT(object sender, EventArgs e)
-        //{
-        //    var bot = new Bot(this.ChannelAccessTokenTxb.Text);
-        //    bot.PushMessage(AdminUserId, 1, 2);
-        //}
+        
         //test SQL
         protected void Button2_selectSQL(object sender, EventArgs e)
         {
@@ -92,85 +76,52 @@ namespace linebot227
         }
         protected void TestButton(object sender, EventArgs e)
         {
-            var api = new RestAPI();
-            var Name = new List<string>
-            {
-             "6樓大門,",
-             "志中旁窗戶,",
-             "柏欽旁窗戶,",
-             "禹任旁窗戶,",
-             "蕭董辦公室沙發旁,",
-             "蕭座位旁窗戶,",
-             "系統部窗戶,",
-             "小房間",
-             "測試點"
-             };
+            RestAPI api = new RestAPI();
+            var pointName = new List<string>
+                            {
+                                //6樓
+                                "6樓大門,",
+                                "志中旁窗戶,",
+                                "柏欽旁窗戶,",
+                                "禹任旁窗戶,",
+                                "蕭董辦公室沙發旁,",
+                                "蕭座位旁窗戶,",
+                                "系統部窗戶,",
+                                "小房間,",
+                                "測試點,",
+                                //4樓
+                                "4F大門,",
+                                "組盤間,",
+                                "測試間窗-1,",
+                                "羅小姐辦公室窗-1,",
+                                "羅小姐辦公室窗-2,",
+                                "小會議室窗,",
+                                "鄭總辦公室窗,",
+                                "測試間窗-2"
+                            };
             var points = new List<string>
-             {
-              "020030",          //大門        value是1代表門是開的
-              "BA_020023",       //志中旁窗戶
-              "BA_020024",       //柏欽旁窗戶
-              "BA_020025",       //禹任旁窗戶
-              "BA_020026",       //蕭董辦公室沙發旁
-              "BA_020027",       //蕭座位旁窗戶
-              "BA_020028",       //系統部窗戶
-              "BA_020029",       //小房間
-              "DO1"            //測試點
-             };
-            //points.Add("123");
-            //points.Add("232323");
-            List<string> aaa = points;
-            api.GetListValue(points,Name);
-            //var client = new RestClient("http://192.168.3.69/WaWebService/Json/GetTagValue/Leegood");
-            //var request = new RestRequest(Method.POST);
-            //request.AddHeader("Authorization", "Basic YWRtaW46bGVlZ29vZA==");
-            //request.AddHeader("Content-Type", "application/json");
-            //int length = points.Count;
-            //string body = "{\"Tags\": [";
-            //int count = 0;
-            //foreach (string x in points)
-            //{
-            //    count++;
-            //    if (count != length)
-            //    {
-            //        body += "{ \"Name\": \"" + x + "\"},";
-            //    }
-            //    else
-            //    {
-            //        body += "{ \"Name\": \"" + x + "\"}";
-            //    }
-            //}
-            //body += "]}";
-            //request.AddParameter("undefined", body, ParameterType.RequestBody);
-
-            //IRestResponse response = client.Execute(request);
-            //// ================== parsing JSON ====================
-            //var buff = response.Content;  //buff is string
-            //dynamic result = JValue.Parse(buff); //result is object\
-            ////var value = result.Values[8].Value; //so I can get value in result
-            //int nnn = 1;
-            //bool isIn = result.Contains(1);
-            //string openStatus = "";
-            //count = 0;
-            //if (isIn)
-            //{
-            //    foreach (var point in result)
-            //    {
-            //        count++;
-            //        if (point == 1)
-            //        {
-            //            openStatus += Name[count - 1];
-            //        }
-            //    }
-            //    //this.ReplyMessage(LineEvent.replyToken, openStatus + "沒關");
-            //    string aaa = openStatus + "沒關";
-            //}
-            //else
-            //{
-            //    //this.ReplyMessage(LineEvent.replyToken, "門窗都關好了");
-            //    string aaa = "門窗都關好了";
-            //}
-            //int ff = 11;
+                            {
+                                //6樓
+                                "020030",          //大門        value是1代表門是開的
+                                "BA_020023",       //志中旁窗戶
+                                "BA_020024",       //柏欽旁窗戶
+                                "BA_020025",       //禹任旁窗戶
+                                "BA_020026",       //蕭董辦公室沙發旁
+                                "BA_020027",       //蕭座位旁窗戶
+                                "BA_020028",       //系統部窗戶
+                                "BA_020029",       //小房間
+                                "DO1",             //測試點
+                                //4樓
+                                "010127",
+                                "BA_010121",
+                                "BA_010122",
+                                "BA_010123",
+                                "BA_010124",
+                                "BA_010125",
+                                "BA_010126",
+                                "BA_010128"
+                            };
+            api.GetListValue(points, pointName);
         }
         protected void Button5_insertSQL(object sender, EventArgs e)
         {

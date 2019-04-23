@@ -118,6 +118,7 @@
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
+    <Content Include="View\HtmlPage1.html" />
     <Content Include="_Sample.html" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
@@ -145,6 +146,7 @@
     <Compile Include="Controllers\LineWebHookSampleController.cs" />
     <Compile Include="Functions\RestAPI.cs" />
     <Compile Include="Functions\RouteConfig.cs" />
+    <Compile Include="Functions\ScheduleControll.cs" />
     <Compile Include="Functions\SQLcontroller.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
@@ -184,7 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="View\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
