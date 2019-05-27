@@ -50,7 +50,7 @@ namespace linebot227
         {
             try
             {
-                string strConnection = "server = 127.0.0.1; database = mydb; uid = sa; pwd = leegood#09477027; Connect Timeout=1;";
+                string strConnection = "server = 192.168.3.247; database = mydb; uid = leegood; pwd = leegood; Connect Timeout=1;";
                 //var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
                 using (SqlConnection conn = new SqlConnection(strConnection))
                 {
@@ -73,7 +73,7 @@ namespace linebot227
 
         public void SearchMember(object sender, EventArgs e)
         {
-            var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
+            var sql = new SQLcontroller("192.168.3.247", "mydb", "leegood", "leegood");
             string name = "";
             name = searchNameTxb.Text;
             var result = sql.CheckMember(name);
@@ -98,7 +98,7 @@ namespace linebot227
         }
         public void verify(object sender, EventArgs e)
         {
-            var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
+            var sql = new SQLcontroller("192.168.3.247", "mydb", "leegood", "leegood");
             if (sql.UpdateMemberInfo(Label2.Text))
             {
                 Button1.BackColor = System.Drawing.Color.Green;

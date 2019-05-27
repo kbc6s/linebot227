@@ -71,7 +71,7 @@ namespace linebot227
                 return;
             }
             //var message = Txb3.Text;
-            var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
+            var sql = new SQLcontroller("192.168.3.247", "mydb", "leegood", "leegood");
 
             var result = sql.CheckMember(Label2);
             if (result.Count == 0)

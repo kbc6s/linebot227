@@ -87,13 +87,6 @@ namespace linebot227.Functions
         //    return results;
         //}
 
-
-
-        
-
-
-
-
         //insert
         public bool InsertMemberInfo(MemberInfo member)
         {
@@ -101,6 +94,17 @@ namespace linebot227.Functions
             {
                 string strSql = "INSERT INTO MemberInfo(Email,Name,LineID,Valid,AuthTime) VALUES (@Email,@Name,@LineID,@Valid,@AuthTime);";
                 var result = conn.Execute(strSql, member);
+                if (result == 1)
+                    return true;
+            }
+            return false;
+        }
+        public bool InsertLogTime(LogInfo log)
+        {
+            using (SqlConnection conn = new SqlConnection(strConnection))
+            {
+                string strSql = "INSERT INTO logTime(LineID,AuthTime,Event) VALUES (@LineID,@AuthTime,@Event);";
+                var result = conn.Execute(strSql, log);
                 if (result == 1)
                     return true;
             }

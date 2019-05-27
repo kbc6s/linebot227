@@ -15,7 +15,7 @@ namespace linebot227.Functions
             
             try
             {
-                var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
+                var sql = new SQLcontroller("192.168.3.247", "mydb", "leegood", "leegood");
                 var result = sql.CheckMember(userId);           //辦過會員管理員還沒驗證
                 var result1 = sql.CheckMember(userId, "'ok'");  //已經是會員
                 const string channelAccessToken = "fTBvt+oi30MpuWqTvT/KJDBuKDJ8iKxPhJLX5fHwT+bha1vEfZPfprFFQ7LrdgdyrDnx/yDe1C+hTbLtYxojWGRyAbRVz2iuok8WbUiZBeOn3gxlUjs5gpsGQmmySmmF9m/Uat9ZwLWxomFA3FZ6jgdB04t89/1O/w1cDnyilFU=";

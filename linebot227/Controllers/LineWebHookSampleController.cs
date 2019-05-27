@@ -26,7 +26,7 @@ namespace linebot227.Controllers
             var week = new List<string> {
                 "週一","週二","週三","週四","週五","週六"
             };
-            var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
+            var sql = new SQLcontroller("192.168.3.247", "mydb", "leegood", "leegood");
             ScheduleControll time = new ScheduleControll();
             RestAPI api = new RestAPI();
             try
@@ -81,7 +81,11 @@ namespace linebot227.Controllers
                         }
                         if (LineEvent.message.text == "開啟6樓系統部空調" && check.VeriMember(LineEvent.source.userId))
                         {
-
+                            LogInfo log = new LogInfo();
+                            log.AuthTime = DateTime.Now;
+                            log.Event = "Open6FX-TeamAircon";
+                            log.LineID = LineEvent.source.userId;
+                            sql.InsertLogTime(log);
                             var isOpenTime = time.Schedule(week, 9, 24, LineEvent.source.userId);
                             if (isOpenTime)
                             {
@@ -103,6 +107,11 @@ namespace linebot227.Controllers
                         }
                         if (LineEvent.message.text == "開啟6樓工程部空調" && check.VeriMember(LineEvent.source.userId))
                         {
+                            LogInfo log = new LogInfo();
+                            log.AuthTime = DateTime.Now;
+                            log.Event = "Open6FEngineerAircon";
+                            log.LineID = LineEvent.source.userId;
+                            sql.InsertLogTime(log);
                             var isOpenTime = time.Schedule(week, 9, 24, LineEvent.source.userId);
                             if (isOpenTime)
                             {
@@ -124,6 +133,11 @@ namespace linebot227.Controllers
                         }
                         if (LineEvent.message.text == "開啟4樓會議室空調" && check.VeriMember(LineEvent.source.userId))
                         {
+                            LogInfo log = new LogInfo();
+                            log.AuthTime = DateTime.Now;
+                            log.Event = "Open4FConferenceRoomAircon";
+                            log.LineID = LineEvent.source.userId;
+                            sql.InsertLogTime(log);
                             var isOpenTime = time.Schedule(week, 9, 24, LineEvent.source.userId);
                             if (isOpenTime)
                             {
@@ -145,6 +159,11 @@ namespace linebot227.Controllers
                         }
                         if (LineEvent.message.text == "開啟4樓組盤間空調" && check.VeriMember(LineEvent.source.userId))
                         {
+                            LogInfo log = new LogInfo();
+                            log.AuthTime = DateTime.Now;
+                            log.Event = "Open4FDIYRoomAircon";
+                            log.LineID = LineEvent.source.userId;
+                            sql.InsertLogTime(log);
                             var isOpenTime = time.Schedule(week, 9, 24, LineEvent.source.userId);
                             if (isOpenTime)
                             {
@@ -164,10 +183,44 @@ namespace linebot227.Controllers
                                 }
                             }
                         }
+                        if (LineEvent.message.text == "4444" && check.VeriMember(LineEvent.source.userId))
+                        {
+                            LogInfo log = new LogInfo();
+                            log.AuthTime = DateTime.Now;
+                            log.Event = "Open4FDoor";
+                            log.LineID = LineEvent.source.userId;
+                            sql.InsertLogTime(log);
+                            var isOpenTime = time.Schedule(week, 9, 24, LineEvent.source.userId);
+                            if (isOpenTime)
+                            {
+                                api.SetValue("010007", 1);
+                                Thread.Sleep(800); //Delay 1秒
+                                api.SetValue("010007", 0); //020032
+                            }
+                        }
+                        if (LineEvent.message.text == "6666" && check.VeriMember(LineEvent.source.userId))
+                        {
+                            LogInfo log = new LogInfo();
+                            log.AuthTime = DateTime.Now;
+                            log.Event = "Open6FDoor";
+                            log.LineID = LineEvent.source.userId;
+                            sql.InsertLogTime(log);
+                            var isOpenTime = time.Schedule(week, 9, 24, LineEvent.source.userId);
+                            if (isOpenTime)
+                            {
+                                api.SetValue("020007", 1);
+                                Thread.Sleep(800); //Delay 1秒
+                                api.SetValue("020007", 0); //020032
+                            }
+                        }
                         if (LineEvent.message.text == "檢查門窗" && check.VeriMember(LineEvent.source.userId))
                         {
                             //RestAPI api = new RestAPI();
-                            
+                            LogInfo log = new LogInfo();
+                            log.AuthTime = DateTime.Now;
+                            log.Event = "checkDoor";
+                            log.LineID = LineEvent.source.userId;
+                            sql.InsertLogTime(log);
                             var pointName = new List<string>
                             {
                                 //6樓
