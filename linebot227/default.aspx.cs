@@ -24,7 +24,7 @@ namespace linebot227
         // public object Label2;
         public string Label2 { get; private set; }
         public string Label1 { get; private set; }
-        public SQLcontroller sql = new SQLcontroller("61.216.65.239", "mydb", "sa", "leegood");
+        public SQLcontroller sql = new SQLcontroller("192.168.3.69", "mydb", "leegood", "leegood");
 
         protected void Page_Load(object sender, EventArgs e)
         {

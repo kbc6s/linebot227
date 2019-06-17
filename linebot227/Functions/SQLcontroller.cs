@@ -32,6 +32,19 @@ namespace linebot227.Functions
             return results;
         }
 
+        public List<MemberInfo> GetMemberLineID(string Name)
+        {
+            //ServerInfo Info = new ServerInfo();
+            List<MemberInfo> results = null;
+            using (SqlConnection conn = new SqlConnection(strConnection))
+            {
+                //string strSql = "SELECT [Seq],[Email],[Name],[LineID],[Valid],[AuthTime] FROM[mydb].[dbo].[MemberInfo]";
+                string strSql = "SELECT [LineID] FROM[mydb].[dbo].[MemberInfo] where [Name] = '" + Name + "'";
+                results = conn.Query<MemberInfo>(strSql).ToList();
+            }
+            return results;
+        }
+
         //搜尋LineID
         public List<MemberInfo> CheckMember(string SearchItem)
         {

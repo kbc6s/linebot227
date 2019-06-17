@@ -13,13 +13,15 @@ namespace linebot227
 {
     public partial class admin : System.Web.UI.Page
     {
+        isRock.LineBot.Bot bot = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                var sql = new SQLcontroller("127.0.0.1", "mydb", "sa", "leegood#09477027");
+                var sql = new SQLcontroller("192.168.3.247", "mydb", "sa", "leegood#09477027");
                 LoadData("select * from [dbo].[MemberInfo] where [Valid] is NULL");
             }
+            bot = new isRock.LineBot.Bot("fTBvt+oi30MpuWqTvT/KJDBuKDJ8iKxPhJLX5fHwT+bha1vEfZPfprFFQ7LrdgdyrDnx/yDe1C+hTbLtYxojWGRyAbRVz2iuok8WbUiZBeOn3gxlUjs5gpsGQmmySmmF9m/Uat9ZwLWxomFA3FZ6jgdB04t89/1O/w1cDnyilFU=");
         }
 
 
@@ -99,8 +101,11 @@ namespace linebot227
         public void verify(object sender, EventArgs e)
         {
             var sql = new SQLcontroller("192.168.3.247", "mydb", "leegood", "leegood");
+            var LineID = sql.GetMemberLineID(searchNameTxb.Text);
+            
             if (sql.UpdateMemberInfo(Label2.Text))
             {
+                bot.PushMessage(LineID[0].LineID.ToString(), "會員已啟用,快試試檢查門窗吧!!!");
                 Button1.BackColor = System.Drawing.Color.Green;
             }
             //var result = sql.UpdateMemberInfo()

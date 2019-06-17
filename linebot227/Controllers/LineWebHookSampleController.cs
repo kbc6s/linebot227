@@ -169,7 +169,7 @@ namespace linebot227.Controllers
                             {
                                 if (api.GetValue("010004") == 1)
                                 {
-                                    this.ReplyMessage(LineEvent.replyToken, "4樓組盤間冷氣是開著的喔.....");
+                                    this.ReplyMessage(LineEvent.replyToken, "4樓組盤間冷氣是開著的喔");
                                 }
                                 else
                                 {
@@ -179,6 +179,10 @@ namespace linebot227.Controllers
                                     if (api.GetValue("010004") == 1)
                                     {
                                         this.ReplyMessage(LineEvent.replyToken, "成功開啟空調");
+                                    }
+                                    else
+                                    {
+                                        this.ReplyMessage(LineEvent.replyToken, "失敗");
                                     }
                                 }
                             }

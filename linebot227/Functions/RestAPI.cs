@@ -99,7 +99,7 @@ namespace linebot227.Functions
                 string aaa = "門窗都關好了";
                 return aaa;
             }
-            int dd = 11;
+
         }
         //取得DDC 點位資訊
         public int GetValue(string Name) //string Name
